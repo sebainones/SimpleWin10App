@@ -27,5 +27,12 @@ namespace App1.ViewModels
         {
             MyMessage = "Hello World!";
         }
+
+        public void GoNext()
+        {
+            //_pageNavigationService.Navigate<AnotherViewModel>();
+            _pageNavigationService.For<AnotherViewModel>().Navigate();
+        }
+
     }
 }

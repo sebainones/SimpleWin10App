@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -74,28 +75,26 @@ namespace App1
         {
             try
             {
-                ////Do not repeat app initialization when the Window already has content,
-                //// just ensure that the window is active
-                //if (rootFrame == null)
-                //{
-                //    // Create a Frame to act as the navigation context and navigate to the first page
-                //    rootFrame = new Frame();
+                //Do not repeat app initialization when the Window already has content,
+                // just ensure that the window is active
+                if (rootFrame == null)
+                {
+                    // Create a Frame to act as the navigation context and navigate to the first page
+                    rootFrame = new Frame();
 
-                //    rootFrame.NavigationFailed += OnNavigationFailed;
+                    rootFrame.NavigationFailed += OnNavigationFailed;
 
-                //    // Place the frame in the current Window
-                //    Window.Current.Content = rootFrame;
-                //}
+                    // Place the frame in the current Window
+                    Window.Current.Content = rootFrame;
+                }
 
-                //if (rootFrame.Content == null)
-                //{
-                //    // When the navigation stack isn't restored navigate to the first page,
-                //    // configuring the new page by passing required information as a navigation
-                //    // parameter
-                //    //rootFrame.Navigate(typeof(HelloView));
-                //}
-
-
+                if (rootFrame.Content == null)
+                {
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+                    //rootFrame.Navigate(typeof(HelloView));
+                }
 
                 _container.RegisterNavigationService(rootFrame);
             }
@@ -172,7 +171,7 @@ namespace App1
             deferral.Complete();
         }
 
-        //Called after and whn  DisplayRootView is called!!!
+        //Called after and when  DisplayRootView is called!!!
         protected override void Configure()
         {
             try
@@ -182,8 +181,8 @@ namespace App1
 
                 // Register your view models at the container
                 // Make sure to register your containers here
-
                 _container.PerRequest<SomeViewModel>();
+                _container.PerRequest<AnotherViewModel>();
             }
             catch (Exception)
             {

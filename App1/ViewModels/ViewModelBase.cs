@@ -16,6 +16,11 @@ namespace App1.ViewModels
             get { return PageNavigationService.CanGoBack; }
         }
 
+        public bool CanForward
+        {
+            get { return PageNavigationService.CanGoForward; }
+        }
+
         public void GoBack()
         {
             PageNavigationService.GoBack();
