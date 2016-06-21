@@ -1,16 +1,11 @@
 ﻿using Caliburn.Micro;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App1.Logging
 {
     public class CaliburnLogger : ILog
-    {
-    
+    {    
         #region Fields
         private readonly Type _type;
         #endregion

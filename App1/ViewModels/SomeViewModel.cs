@@ -2,15 +2,19 @@
 
 namespace App1.ViewModels
 {
-    public class SomeViewModel : ViewModelBase
+    public class SomeViewModel : ViewModelBase, ISomeViewModel
     {
         private INavigationService _pageNavigationService;
+      
 
 
         public SomeViewModel(INavigationService pageNavigationService) : base(pageNavigationService)
         {
             _pageNavigationService = pageNavigationService;
+
+            
         }
+
 
         private string _myMessage;
         public string MyMessage

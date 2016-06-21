@@ -19,6 +19,7 @@ namespace App1
     sealed partial class App
     {
         private WinRTContainer _container;
+        private readonly ILog _log;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -29,9 +30,17 @@ namespace App1
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
             Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
+
+#if DEBUG
+            //Logger for Caliburn messages.
             LogManager.GetLog = type => new CaliburnLogger(type);
+#endif
+
+            //logger for your own code.
+            _log = LogManager.GetLog(typeof(App));
+
         }
 
         //SelectedAssembly is used in the case of separate views/viewmodels in different DLLs
@@ -40,14 +49,13 @@ namespace App1
         {
             try
             {
-                //typeof(HelloViewModel).AssemblyQualifiedName)
-                AssemblyName assemblyName = new AssemblyName("App1");
-
+                var assenmblyName = typeof(SomeViewModel).GetTypeInfo().Assembly.GetAssemblyName();
+                AssemblyName assemblyName = new AssemblyName(assenmblyName);
                 return new[] { Assembly.Load(assemblyName) };
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-
+                _log.Error(exception);
                 throw;
             }
         }
@@ -65,8 +73,9 @@ namespace App1
                 // I am launching my main view here
                 DisplayRootView<SomeView>();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                _log.Error(exception);
                 throw;
             }
         }
@@ -98,9 +107,9 @@ namespace App1
 
                 _container.RegisterNavigationService(rootFrame);
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-
+                _log.Error(exception);
                 throw;
             }
         }
@@ -184,9 +193,9 @@ namespace App1
                 _container.PerRequest<SomeViewModel>();
                 _container.PerRequest<AnotherViewModel>();
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-
+                _log.Error(exception);
                 throw;
             }
         }
