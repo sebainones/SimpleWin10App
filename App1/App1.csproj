@@ -99,9 +99,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Converters\Converter.cs" />
     <Compile Include="Logging\CaliburnLogger.cs" />
+    <Compile Include="Model\RatesResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\RecordingModel.cs" />
+    <Compile Include="Services\IRestClient.cs" />
+    <Compile Include="Services\RestClient.cs" />
     <Compile Include="ViewModels\AnotherViewModel.cs" />
     <Compile Include="ViewModels\ISomeViewModel.cs" />
     <Compile Include="ViewModels\RecordingViewModel.cs" />

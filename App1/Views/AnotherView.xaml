@@ -11,5 +11,8 @@
         <TextBlock x:Name="textBlock" Margin="10,250,10,0" TextWrapping="Wrap" Text="ANOTHER VIEW" FontSize="36" VerticalAlignment="Top" Height="110"/>
         <Button x:Name="GoPrevious" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,365,0,0" Width="155"/>
 
+        <Button x:Name="GetExchangeRates" Content="Exhange Rates" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,365,0,0" Width="155"/>
+
+
     </Grid>
 </Page>
