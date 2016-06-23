@@ -189,7 +189,7 @@ namespace App1
                 _container = new WinRTContainer();
                 _container.RegisterWinRTServices();
 
-                _container.Singleton<IRestClient, FakeRestClient>();//RestClient
+                _container.Singleton<IRestClient, RestClient>();//RestClient   //FakeRestClient
 
                 // Register your view models at the container.                
                 _container.PerRequest<SomeViewModel>();

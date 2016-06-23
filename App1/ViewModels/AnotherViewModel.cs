@@ -1,5 +1,4 @@
-﻿using System;
-using App1.Model;
+﻿using App1.Model;
 using App1.Services;
 using Caliburn.Micro;
 
@@ -35,9 +34,6 @@ namespace App1.ViewModels
 
         public async void GetExchangeRates()
         {
-            //_pageNavigationService.Navigate<AnotherViewModel>();
-            _pageNavigationService.For<SomeViewModel>().Navigate();
-
             var response = await _restClient.Get<RatesResponse>();
 
             PopulateRates(response.rates);
