@@ -1,16 +1,14 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App1.Model
 {
     public class RatesResponse
     {
-        [JsonProperty(PropertyName = "default")]        
+        public int timestamp { get; set; }
+
+        [JsonProperty(PropertyName = "base")]
         public string BaseCurrency { get; set; }
 
+        public Rates rates { get; set; }
     }
 }

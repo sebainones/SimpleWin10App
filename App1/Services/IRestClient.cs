@@ -9,7 +9,5 @@ namespace App1.Services
         string LatestJsonQuery { get; }
 
         Task<T> Get<T>();
-
-        Task<T> Post<T>(string url, object requestContent);
     }
 }

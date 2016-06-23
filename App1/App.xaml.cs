@@ -1,4 +1,5 @@
 ﻿using App1.Logging;
+using App1.Services;
 using App1.ViewModels;
 using App1.Views;
 using Caliburn.Micro;
@@ -173,7 +174,7 @@ namespace App1
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        protected override void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
@@ -188,8 +189,9 @@ namespace App1
                 _container = new WinRTContainer();
                 _container.RegisterWinRTServices();
 
-                // Register your view models at the container
-                // Make sure to register your containers here
+                _container.Singleton<IRestClient, FakeRestClient>();//RestClient
+
+                // Register your view models at the container.                
                 _container.PerRequest<SomeViewModel>();
                 _container.PerRequest<AnotherViewModel>();
             }

@@ -1,5 +1,4 @@
-﻿using App1.Model;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using Newtonsoft.Json;
 using System;
 using System.Net;
@@ -35,6 +34,9 @@ namespace App1.Services
 
         static RestClient()
         {
+            //TODO: Read this
+            //https://msdn.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data#Create_and_retrieve_a_simple_local_setting
+
             localSettings.Values["APIBasePath"] = @"https://openexchangerates.org/api/";
 
             localSettings.Values["LatestJsonQuery"] = @"latest.json?app_id=";
@@ -63,34 +65,28 @@ namespace App1.Services
 
         private void SetHeaders(HttpClient client)
         {
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", LatestJsonQuery, APIId))));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(string.Format("{0}:{1}", LatestJsonQuery, APIId))));
         }
 
         public async Task<T> Get<T>()
         {
-            T jsonObject = default(T);
+            T responseJson = default(T);
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
                     SetHeaders(client);
 
-                    //TODO: Verify this!! This workaround could be potential security threat as you are turning off the SSL certificate validation.
-                    //https://social.msdn.microsoft.com/Forums/windowsapps/en-US/f5821194-4c40-48e7-976c-3dec8864ac59/servicepointmanagerservercertificatevalidationcallback?forum=winappswithcsharp
-                    //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(delegate { return true; });
-
                     Uri uri = CreateUri();
 
                     using (HttpResponseMessage response = client.GetAsync(uri).Result)
                     {
                         response.EnsureSuccessStatusCode();
+
                         string responseBody = await response.Content.ReadAsStringAsync();
 
-
-                        T responseJson = JsonConvert.DeserializeObject<T>(responseBody);//, jsonSerializerSettings
-
-                        //jsonObject = Converter.ConvertValue<T>(responseJson.Schedule);
+                        responseJson = JsonConvert.DeserializeObject<T>(responseBody);
                     }
                 }
             }
@@ -105,9 +101,10 @@ namespace App1.Services
                 _log.Error(exception);
             }
 
-            return jsonObject;
+            return responseJson;
         }
-        
+
+        [Obsolete]
         public async Task<T> Post<T>(string url, object requestContent)
         {
 
