@@ -21,9 +21,13 @@ namespace Commands.App1
         /// </summary>
         private Action<T> ExecuteAction { get; set; }
 
+        /// <summary>
+        /// Backing field for the can execute check function.
+        /// </summary>
+        private readonly Func<bool> canExecute;
+
         #endregion Private Properties
-
-
+        
         #region Public Events
 
         /// <summary>
@@ -33,8 +37,7 @@ namespace Commands.App1
         public event EventHandler CanExecuteChanged;
 
         #endregion Public Events
-
-
+        
         #region Public Constructors
 
         /// <summary>
@@ -44,17 +47,24 @@ namespace Commands.App1
         /// <param name="executeAction">
         /// Action to be executed.
         /// </param>
-        public DelegateCommand
-          (
-          Action<T> executeAction
-          )
+        public DelegateCommand(Action<T> executeAction)
         {
             ExecuteAction = executeAction;
         }
 
+        public DelegateCommand(Action<T> executeAction, Func<bool> canExecute)
+        {
+            if (executeAction == null)
+            {
+                throw new ArgumentNullException("executeAction");
+            }
+
+            ExecuteAction = executeAction;
+            this.canExecute = canExecute;
+        }
+
         #endregion Public Constructors
-
-
+        
         #region Public Methods
 
         /// <summary>
@@ -65,24 +75,32 @@ namespace Commands.App1
         /// <c>true</c> if this command can be executed; 
         /// otherwise, <c>false</c>.
         /// </returns>
-        public bool CanExecute
-          (
-          object parameter
-          )
+        public bool CanExecute(object parameter)
         {
-            return true;
+            return this.canExecute == null || this.canExecute();
         }
 
         /// <summary>
         /// Invokes the method to be called.
         /// </summary>
         /// <param name="parameter">Data used by the command.</param>
-        public void Execute
-          (
-          object parameter
-          )
+        public void Execute(object parameter)
         {
             ExecuteAction((T)Convert.ChangeType(parameter, typeof(T)));
+        }
+
+        /// <summary>
+        /// Method used to raise the <see cref="CanExecuteChanged"/> event
+        /// to indicate that the return value of the <see cref="CanExecute"/>
+        /// method has changed.
+        /// </summary>
+        public void OnCanExecuteChanged()
+        {
+            var handler = this.CanExecuteChanged;
+            if (handler != null)
+            {
+                handler(this, EventArgs.Empty);
+            }
         }
 
         #endregion Public Methods
