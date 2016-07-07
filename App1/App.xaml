@@ -11,8 +11,15 @@
 <cm:CaliburnApplication
                         x:Class="App1.App"
                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                        xmlns:local="using:UWPCaliburnMicro"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                        
                         xmlns:cm="using:Caliburn.Micro" RequestedTheme="Light">
+    <cm:CaliburnApplication.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/AppColors.xaml"/>
+                <ResourceDictionary Source="Styles/AppTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
+        </ResourceDictionary>
+    </cm:CaliburnApplication.Resources>
 </cm:CaliburnApplication>

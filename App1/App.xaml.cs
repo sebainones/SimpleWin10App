@@ -31,6 +31,7 @@ namespace App1
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
             Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
+
             InitializeComponent();
             Suspending += OnSuspending;
 
@@ -72,7 +73,7 @@ namespace App1
             try
             {
                 // I am launching my main view here
-                DisplayRootView<SomeView>();
+                DisplayRootView<ShellPage>();
             }
             catch (Exception exception)
             {
@@ -83,8 +84,13 @@ namespace App1
 
         protected override void PrepareViewFirst(Frame rootFrame)
         {
+            //Acá el rootFrame se lo pasa el metodo.
+            //Sino, sin Caliburn, se obtiene así desde OnLaunched
+            //  Frame rootFrame = Window.Current.Content as Frame;
+
             try
             {
+
                 //Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
                 if (rootFrame == null)
@@ -192,6 +198,8 @@ namespace App1
                 _container.Singleton<IRestClient, RestClient>();//RestClient   //FakeRestClient
 
                 // Register your view models at the container.                
+
+                _container.PerRequest<ShellPage>();
                 _container.PerRequest<SomeViewModel>();
                 _container.PerRequest<AnotherViewModel>();
             }
