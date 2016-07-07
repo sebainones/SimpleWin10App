@@ -1,4 +1,4 @@
-﻿<Page
+﻿<Page xmlns:my="using:Microsoft.AdMediator.Universal" 
     x:Class="App1.Views.SomeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -13,6 +13,8 @@
             <Button x:Name="SayHello" Content="Say hello" Margin="0,10"  />
             <Button x:Name="GoNext" Content="Next" 
                     HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="95"/>
+            <my:AdMediatorControl  Background="DarkOrange"/>
+            
         </StackPanel>
 
     </Grid>

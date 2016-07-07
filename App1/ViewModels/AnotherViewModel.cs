@@ -9,16 +9,26 @@ namespace App1.ViewModels
         private INavigationService _pageNavigationService;
         private IRestClient _restClient;
 
-        private double pesos;
-        public double Pesos
+        private double compra;
+        public double Compra
         {
-            get { return pesos; }
+            get { return compra; }
             set
             {
-                pesos = value;
-                NotifyOfPropertyChange(() => Pesos);
+                compra = value;
+                NotifyOfPropertyChange(() => Compra);
             }
         }
+        private double venta;
+
+        public double Venta
+        {
+            get { return venta; }
+            set { venta = value;
+                NotifyOfPropertyChange(() => Venta);
+            }
+        }
+
 
         public AnotherViewModel(INavigationService pageNavigationService, IRestClient restClient) : base(pageNavigationService)
         {
@@ -34,15 +44,16 @@ namespace App1.ViewModels
 
         public async void GetExchangeRates()
         {
-            var response = await _restClient.Get<RatesResponse>();
+            var response = await _restClient.Get<ArsRate>();
 
-            PopulateRates(response.rates);
+            PopulateRates(response);
 
         }
 
-        private void PopulateRates(Rates rates)
+        private void PopulateRates(ArsRate arsRate)
         {
-            Pesos = rates.ARS;
+            Compra = arsRate.oficial.value_buy;
+            Venta = arsRate.oficial.value_sell;
         }
     }
 }

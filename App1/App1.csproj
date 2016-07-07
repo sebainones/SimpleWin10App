@@ -103,6 +103,11 @@
     </Compile>
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Logging\CaliburnLogger.cs" />
+    <Compile Include="Model\ArsRate.cs" />
+    <Compile Include="Model\Blue.cs" />
+    <Compile Include="Model\BlueEuro.cs" />
+    <Compile Include="Model\Oficial.cs" />
+    <Compile Include="Model\OficialEuro.cs" />
     <Compile Include="Model\Rates.cs" />
     <Compile Include="Model\RatesResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -153,6 +158,20 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.AdMediator.Universal, Version=1.0">
+      <Name>Microsoft.AdMediator.Universal</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0">
+      <Name>Microsoft Advertising SDK for XAML</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
+      <Name>Microsoft.VCLibs.120</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

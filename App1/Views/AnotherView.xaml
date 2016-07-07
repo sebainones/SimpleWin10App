@@ -12,9 +12,10 @@
         <Button x:Name="GoPrevious" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,365,0,0" Width="155"/>
 
         <Button x:Name="GetExchangeRates" Content="Exhange Rates" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,365,0,0" Width="155"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="20,205,0,0" TextWrapping="Wrap" Text="Pesos Argentinos" VerticalAlignment="Top"/>
-        <TextBlock x:Name="Pesos" HorizontalAlignment="Left" Margin="139,205,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
-
-
+        <TextBlock x:Name="textBlockTitulo" HorizontalAlignment="Left" Margin="20,205,0,0" TextWrapping="Wrap" Text="Valor del Dolar" VerticalAlignment="Top"/>
+        <TextBlock x:Name="Compra" HorizontalAlignment="Left" Margin="93,230,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockCompraLabel" HorizontalAlignment="Left" Margin="20,230,0,0" TextWrapping="Wrap" Text="Compra"  VerticalAlignment="Top" RenderTransformOrigin="0.472,-1.75"/>
+        <TextBlock x:Name="Venta" HorizontalAlignment="Left" Margin="93,255,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
+        <TextBlock x:Name="TextBlocVentaLabel" HorizontalAlignment="Left" Margin="20,255,0,0" Text="Venta" TextWrapping="Wrap"  VerticalAlignment="Top" RenderTransformOrigin="0.472,-1.75"/>
     </Grid>
 </Page>

@@ -54,13 +54,7 @@ namespace App1.Services
 
         private Uri CreateUri()
         {
-            //Uri apiUri = new Uri(APIBasePath);
-
-            UriBuilder baseUri = new UriBuilder("https://openexchangerates.org/api/latest.json");
-            string queryToAppend = "app_id=2f533c04fdbe4641a57bdad53800958e";
-            baseUri.Query = baseUri.Query + queryToAppend;
-
-            return baseUri.Uri;
+            return new Uri(@"http://api.bluelytics.com.ar/v2/latest");
         }
 
         private void SetHeaders(HttpClient client)
