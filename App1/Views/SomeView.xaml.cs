@@ -1,4 +1,6 @@
-﻿using System;
+﻿using App1.ViewModels;
+using AppStudio.Uwp.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +27,29 @@ namespace App1.Views
         public SomeView()
         {
             this.InitializeComponent();
+            this.Loaded += SomeView_Loaded;
+
+            // Or typecast to exact instance what you intend to use.
+            //MyViewModel vm = DataContext as MyViewModel;
+
+            //var mainViewModel = new Scenario1ViewModel();
+
         }
+
+
+
+        private void SomeView_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Get you the object of ViewModel.
+            SomeViewModel viewModelInstance = DataContext as SomeViewModel;
+
+            //viewModelInstance.MenuItems.Add(new NavigationItem()
+            //{
+            //    Label = "Page 1",
+            //    DestinationPage = typeof(AnotherView),
+            //    Symbol = Symbol.Bookmarks
+            //});
+        }
+
     }
 }

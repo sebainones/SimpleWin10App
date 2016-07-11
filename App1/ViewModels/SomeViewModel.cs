@@ -1,10 +1,25 @@
-﻿using Caliburn.Micro;
+﻿using AppStudio.Uwp.Controls;
+using Caliburn.Micro;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace App1.ViewModels
 {
     public class SomeViewModel : ViewModelBase, ISomeViewModel
     {
         private INavigationService _pageNavigationService;
+        public ObservableCollection<NavigationItem> MenuItems { get; }
+        public Type InitialPage { get; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(
+              this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
 
         public SomeViewModel(INavigationService pageNavigationService) : base(pageNavigationService)
         {
@@ -39,6 +54,8 @@ namespace App1.ViewModels
                 throw;
             }
         }
+
+        
 
     }
 }
