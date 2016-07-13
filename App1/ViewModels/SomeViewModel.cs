@@ -19,11 +19,11 @@ namespace App1.ViewModels
               this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-
         public SomeViewModel(INavigationService pageNavigationService) : base(pageNavigationService)
         {
             _pageNavigationService = pageNavigationService;
+
+            Caption = "Titulazo";
         }
 
         private string _myMessage;
@@ -34,6 +34,29 @@ namespace App1.ViewModels
             {
                 _myMessage = value;
                 NotifyOfPropertyChange(() => MyMessage);
+            }
+        }
+
+        private string _caption;
+        public string Caption
+        {
+            get { return _caption; }
+            set
+            {
+                _caption = value;
+                NotifyOfPropertyChange(() => Caption);
+            }
+        }
+
+        private bool _IsPaneOpen;
+
+        public bool IsPaneOpen
+        {
+            get { return _IsPaneOpen; }
+            set
+            {
+                _IsPaneOpen = value;
+                NotifyOfPropertyChange(() => IsPaneOpen);
             }
         }
 
@@ -55,7 +78,10 @@ namespace App1.ViewModels
             }
         }
 
-        
+        public void HandlePane()
+        {
+            IsPaneOpen = !IsPaneOpen;
+        }
 
     }
 }

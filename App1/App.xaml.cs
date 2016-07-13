@@ -33,6 +33,7 @@ namespace App1
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
             InitializeComponent();
             Suspending += OnSuspending;
+            this.UnhandledException += App_UnhandledException;   
 
 #if DEBUG
             //Logger for Caliburn messages.
@@ -43,6 +44,7 @@ namespace App1
             _log = LogManager.GetLog(typeof(App));
 
         }
+
 
         //SelectedAssembly is used in the case of separate views/viewmodels in different DLLs
         //So, here is not necessary at the moment.
@@ -218,6 +220,17 @@ namespace App1
         protected override void BuildUp(object instance)
         {
             _container.BuildUp(instance);
+        }
+
+        
+        protected  void OnUnhandledException(Exception excepetion)
+        {
+
+        }
+
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            _log.Warn(e.Message);
         }
     }
 }

@@ -17,7 +17,7 @@
                 <ContentControl
                     Margin="12,10"
                     Content="{Binding Icon}"
-                    Foreground="{StaticResource NavigationPaneText}"/>
+                    Foreground="Blue"/>
                 <ContentControl
                     Margin="6,0"
                     HorizontalAlignment="Center"
@@ -27,7 +27,7 @@
                     Grid.Column="1"
                     Margin="16,10"
                     Text="{Binding Caption}"
-                    Foreground="{StaticResource NavigationPaneText}" />
+                    Foreground="Black" />
                 <ToolTipService.ToolTip>
                     <TextBlock Text="{Binding Caption}" Foreground="{ThemeResource SystemBaseHighColor}"/>
                 </ToolTipService.ToolTip>
@@ -45,7 +45,7 @@
                             X1="0"
                             X2="1"
                             Stretch="UniformToFill"
-                            Stroke="{StaticResource NavigationPaneText}" />
+                            Stroke="Azure" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -53,10 +53,7 @@
 
         <DataTemplate x:Key="DefaultHeaderTemplate">
             <Grid Background="Transparent">
-                <TextBlock
-                    Margin="14,8"
-                    Text="{Binding}"
-                    Style="{StaticResource AppBarTitleStyle}" />
+                <TextBlock  Margin="14,8" Text="{Binding}"/>
             </Grid>
         </DataTemplate>
 
@@ -116,21 +113,13 @@
         </Style>
     </Page.Resources>
 
+    <Grid Background="LightGreen">       
 
-    <Grid Background="Red">
-        <controls:ShellControl
-            VerticalAlignment="Top" HorizontalAlignment="Left"            
-            x:Name="shell" Background="Yellow" Header="Titulo" HamburgerBackground="Green" HamburgerBorderBrush="Orange" HamburgerForeground="Blue" Height="48" Width="48"
-            NavigationItemTemplate="{StaticResource NavigationItemTemplate}"
-            NavigationSubItemTemplate="{StaticResource NavigationItemTemplate}"
-            >
+        <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol" ></Button> 
 
-        </controls:ShellControl>
-
-        <SplitView Margin="0,50,0,0" IsPaneOpen="True"  DisplayMode="Inline" CompactPaneLength="50" OpenPaneLength="150">
-
+        <SplitView Margin="0,50,0,0"  DisplayMode="Inline" CompactPaneLength="50" OpenPaneLength="50" IsPaneOpen="{Binding IsPaneOpen}">
             <SplitView.Content>
-                <StackPanel Orientation="Vertical" Margin="20">
+                <StackPanel Orientation="Vertical">
                     <TextBox x:Name="MyMessage" AcceptsReturn="True" PlaceholderText="something will appear here" VerticalAlignment="Top" />
                     <Button x:Name="SayHello" Content="Say hello" VerticalAlignment="Stretch"  />
                     <Button x:Name="GoNext" Content="Next" 
@@ -140,11 +129,10 @@
                 </StackPanel>
             </SplitView.Content>
             <SplitView.Pane>
-                <Button Content="Sebas"></Button>
+                <Button Height="48" Width="48">
+                    <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x2148;" />
+                </Button>                
             </SplitView.Pane>
         </SplitView>
-
-
-
     </Grid>
 </Page>
