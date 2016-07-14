@@ -115,16 +115,16 @@
     <Compile Include="Services\FakeRestClient.cs" />
     <Compile Include="Services\IRestClient.cs" />
     <Compile Include="Services\RestClient.cs" />
-    <Compile Include="ViewModels\AnotherViewModel.cs" />
+    <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\ISomeViewModel.cs" />
     <Compile Include="ViewModels\RecordingViewModel.cs" />
-    <Compile Include="ViewModels\SomeViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\AnotherView.xaml.cs">
-      <DependentUpon>AnotherView.xaml</DependentUpon>
+    <Compile Include="Views\InformationView.xaml.cs">
+      <DependentUpon>InformationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SomeView.xaml.cs">
-      <DependentUpon>SomeView.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -144,11 +144,11 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\AnotherView.xaml">
+    <Page Include="Views\InformationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SomeView.xaml">
+    <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

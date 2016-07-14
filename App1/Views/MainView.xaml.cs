@@ -22,9 +22,9 @@ namespace App1.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SomeView : Page
+    public sealed partial class MainView : Page
     {
-        public SomeView()
+        public MainView()
         {
             this.InitializeComponent();
             this.Loaded += SomeView_Loaded;
@@ -41,7 +41,7 @@ namespace App1.Views
         private void SomeView_Loaded(object sender, RoutedEventArgs e)
         {
             // Get you the object of ViewModel.
-            SomeViewModel viewModelInstance = DataContext as SomeViewModel;
+            MainViewModel viewModelInstance = DataContext as MainViewModel;
 
             //viewModelInstance.MenuItems.Add(new NavigationItem()
             //{

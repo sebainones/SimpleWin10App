@@ -52,7 +52,7 @@ namespace App1
         {
             try
             {
-                var assenmblyName = typeof(SomeViewModel).GetTypeInfo().Assembly.GetAssemblyName();
+                var assenmblyName = typeof(MainViewModel).GetTypeInfo().Assembly.GetAssemblyName();
                 AssemblyName assemblyName = new AssemblyName(assenmblyName);
                 return new[] { Assembly.Load(assemblyName) };
             }
@@ -74,7 +74,7 @@ namespace App1
             try
             {
                 // I am launching my main view here
-                DisplayRootView<SomeView>();
+                DisplayRootView<MainView>();
             }
             catch (Exception exception)
             {
@@ -194,8 +194,8 @@ namespace App1
                 _container.Singleton<IRestClient, RestClient>();//RestClient   //FakeRestClient
 
                 // Register your view models at the container.                
-                _container.PerRequest<SomeViewModel>();
-                _container.PerRequest<AnotherViewModel>();
+                _container.PerRequest<MainViewModel>();
+                _container.PerRequest<InformationViewModel>();
             }
             catch (Exception exception)
             {
