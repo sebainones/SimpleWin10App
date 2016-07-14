@@ -25,7 +25,7 @@ namespace App1.ViewModels
 
         public MainViewModel(INavigationService pageNavigationService, IRestClient restClient) : base(pageNavigationService)
         {
-            Caption = "Titulazo";
+            Caption = "Cotización en Argentina";
 
             _pageNavigationService = pageNavigationService;
             _restClient = restClient;
@@ -135,6 +135,15 @@ namespace App1.ViewModels
             }
         }
 
+
+        private DateTime lastUpdated;
+
+        public DateTime LastUpdated
+        {
+            get { return lastUpdated; }
+            set { lastUpdated = value; }
+        }
+
         public void ShowAbout()
         {
             _pageNavigationService.For<InformationViewModel>().Navigate();
@@ -155,6 +164,7 @@ namespace App1.ViewModels
 
             EuroCompra = arsRate.oficial_euro.value_buy;
             EuroVenta = arsRate.oficial_euro.value_sell;
+            LastUpdated = DateTime.Parse(arsRate.last_update);
         }
 
     }

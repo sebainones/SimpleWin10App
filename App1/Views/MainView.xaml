@@ -11,11 +11,16 @@
     <Grid Background="LightGreen">
 
         <!--Hamburguer Button-->
-        <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol" ></Button>
+        <StackPanel Orientation="Horizontal"  >
+            <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol" ></Button>
 
-        <SplitView Margin="0,50,0,0"  DisplayMode="Inline" CompactPaneLength="50" OpenPaneLength="50" IsPaneOpen="{Binding IsPaneOpen}">
+            <TextBlock x:Name="Caption" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="34"></TextBlock>
+        </StackPanel>
+
+
+        <SplitView Margin="0,50,0,0"  DisplayMode="Inline" CompactPaneLength="50" OpenPaneLength="50" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="Green">
             <SplitView.Content>
-                <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Vertical" Margin="38,0,0,0">
 
                     <StackPanel Orientation="Horizontal">
 
@@ -34,7 +39,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalAlignment="Center"
-                                        TextWrapping="Wrap" Text="Dolar $" />
+                                        TextWrapping="Wrap" Text="Dolar $"  FontSize="24"/>
 
                                 <TextBlock x:Name="textBlockCompraLabel" Grid.Row="1" Grid.Column="0"  Margin="5"
                                            TextWrapping="Wrap" Text="Compra" />
@@ -51,7 +56,7 @@
                         </Border>
 
                         <Border Name="Euro" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                            BorderThickness="2" BorderBrush="Black" CornerRadius="3" Padding="10">
+                            BorderThickness="2" BorderBrush="Black" CornerRadius="3" Padding="10" >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -65,7 +70,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"  Margin="5" HorizontalAlignment="Center"
-                                        TextWrapping="Wrap" Text="Euro €" />
+                                        TextWrapping="Wrap" Text="Euro €" FontSize="24" />
 
                                 <TextBlock  Grid.Row="1" Grid.Column="0"  TextWrapping="Wrap" Text="Compra"  Margin="5"/>
                                 <TextBlock x:Name="EuroCompra" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Margin="5"/>
@@ -78,6 +83,9 @@
                                         TextWrapping="Wrap" Text="ARS" />
                             </Grid>
                         </Border>
+
+                        <TextBlock Text="Última actualización" TextWrapping="Wrap" Margin="5"/>
+                        <TextBlock x:Name="LastUpdated" HorizontalAlignment="Left" TextWrapping="Wrap"  Margin="5"/>
 
                     </StackPanel>
 
