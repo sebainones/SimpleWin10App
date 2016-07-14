@@ -81,8 +81,6 @@
 
                     </StackPanel>
 
-
-
                     <Border Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                             BorderThickness="2" BorderBrush="Red" CornerRadius="3" Padding="10">
                         <my:AdMediatorControl  Background="DarkOrange"/>
