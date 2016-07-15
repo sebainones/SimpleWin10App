@@ -164,6 +164,7 @@ namespace App1.ViewModels
 
             EuroCompra = arsRate.oficial_euro.value_buy;
             EuroVenta = arsRate.oficial_euro.value_sell;
+            //TODO: put format on it
             LastUpdated = DateTime.Parse(arsRate.last_update);
         }
 
