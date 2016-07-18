@@ -222,12 +222,6 @@ namespace App1
             _container.BuildUp(instance);
         }
 
-        
-        protected  void OnUnhandledException(Exception excepetion)
-        {
-
-        }
-
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             _log.Warn(e.Message);

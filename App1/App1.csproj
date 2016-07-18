@@ -122,6 +122,7 @@
     <Compile Include="Services\FakeRestClient.cs" />
     <Compile Include="Services\IRestClient.cs" />
     <Compile Include="Services\RestClient.cs" />
+    <Compile Include="ViewModels\DesignMainViewModel.cs" />
     <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\ISomeViewModel.cs" />
     <Compile Include="ViewModels\RecordingViewModel.cs" />

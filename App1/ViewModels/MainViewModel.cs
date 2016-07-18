@@ -5,6 +5,8 @@ using Caliburn.Micro;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using Windows.ApplicationModel;
 
 namespace App1.ViewModels
 {
@@ -30,7 +32,10 @@ namespace App1.ViewModels
             _pageNavigationService = pageNavigationService;
             _restClient = restClient;
 
-            GetExchangeRates();
+            if (!DesignMode.DesignModeEnabled)
+            {
+                GetExchangeRates();
+            }
         }
 
         private string _myMessage;
@@ -65,11 +70,6 @@ namespace App1.ViewModels
                 _IsPaneOpen = value;
                 NotifyOfPropertyChange(() => IsPaneOpen);
             }
-        }
-
-        public void SayHello()
-        {
-            MyMessage = "Hello World!";
         }
 
         public void GoNext()
@@ -112,7 +112,6 @@ namespace App1.ViewModels
             }
         }
 
-
         private double euroVenta;
         public double EuroVenta
         {
@@ -135,10 +134,8 @@ namespace App1.ViewModels
             }
         }
 
-
-        private DateTime lastUpdated;
-
-        public DateTime LastUpdated
+        private string lastUpdated;
+        public string LastUpdated
         {
             get { return lastUpdated; }
             set { lastUpdated = value; }
@@ -164,8 +161,7 @@ namespace App1.ViewModels
 
             EuroCompra = arsRate.oficial_euro.value_buy;
             EuroVenta = arsRate.oficial_euro.value_sell;
-            //TODO: put format on it
-            LastUpdated = DateTime.Parse(arsRate.last_update);
+            LastUpdated = DateTime.Parse(arsRate.last_update).ToString("d MMM yyyy HH:mm");
         }
 
     }

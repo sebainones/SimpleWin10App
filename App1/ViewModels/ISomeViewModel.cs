@@ -2,6 +2,5 @@
 {
     public interface ISomeViewModel
     {
-        void SayHello();
     }
 }
