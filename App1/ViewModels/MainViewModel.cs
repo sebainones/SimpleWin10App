@@ -151,7 +151,6 @@ namespace App1.ViewModels
             var response = await _restClient.Get<ArsRate>();
 
             PopulateRates(response);
-
         }
 
         private void PopulateRates(ArsRate arsRate)
@@ -161,7 +160,7 @@ namespace App1.ViewModels
 
             EuroCompra = arsRate.oficial_euro.value_buy;
             EuroVenta = arsRate.oficial_euro.value_sell;
-            LastUpdated = DateTime.Parse(arsRate.last_update).ToString("d MMM yyyy HH:mm");
+            LastUpdated = DateTime.Parse(arsRate.last_update).ToString("d MMM yyyy");
         }
 
     }

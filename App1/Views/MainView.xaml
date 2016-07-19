@@ -21,7 +21,7 @@
     <!--
     " micro:Bind.AtDesignTime="True"-->
 
-    <Grid Background="LightGreen">
+    <Grid Background="#FF24B2C9">
 
         <!--Hamburguer Button-->
         <StackPanel Orientation="Horizontal"  >
@@ -30,7 +30,7 @@
             <TextBlock x:Name="Caption" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="34"></TextBlock>
         </StackPanel>
 
-        <SplitView Margin="0,50,0,0"  DisplayMode="Inline" CompactPaneLength="50" OpenPaneLength="50" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="Green">
+        <SplitView Margin="0,50,0,0" CompactPaneLength="50" OpenPaneLength="50" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF0D95B4" DisplayMode="Inline">
             <SplitView.Content>
                 <StackPanel Orientation="Vertical" Margin="38,0,0,0">
 
@@ -103,7 +103,7 @@
 
                                 <TextBlock Grid.Row="2" Grid.Column="0"   Text="Venta" TextWrapping="Wrap" Margin="5"/>
                                 <TextBlock x:Name="EuroVenta"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Margin="5" 
-                                           Text="{Binding EuroVenta}"/>
+                                           />
                                 <TextBlock  Grid.Row="2" Grid.Column="2" Margin="5"
                                         TextWrapping="Wrap" Text="ARS" />
                             </Grid>
