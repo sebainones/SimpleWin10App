@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -31,9 +32,13 @@ namespace App1
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
             Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
+
+            SetApplicationSize();
+
             InitializeComponent();
+
             Suspending += OnSuspending;
-            this.UnhandledException += App_UnhandledException;   
+            UnhandledException += App_UnhandledException;
 
 #if DEBUG
             //Logger for Caliburn messages.
@@ -45,6 +50,11 @@ namespace App1
 
         }
 
+        private static void SetApplicationSize()
+        {
+            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(520, 740);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+        }
 
         //SelectedAssembly is used in the case of separate views/viewmodels in different DLLs
         //So, here is not necessary at the moment.

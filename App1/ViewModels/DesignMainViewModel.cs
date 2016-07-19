@@ -9,7 +9,7 @@ namespace App1.ViewModels
         {
             if (Execute.InDesignMode)//(DesignMode.DesignModeEnabled)
             {
-                Caption = "Cotización de Pruebaaa";
+                Caption = "Cotización en Argentina";
 
                 Compra = 99.99;
                 Venta = 88.88;
