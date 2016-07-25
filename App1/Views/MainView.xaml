@@ -19,17 +19,39 @@
     MinHeight="740"        
     d:DataContext="{d:DesignInstance Type=vm:DesignMainViewModel, IsDesignTimeCreatable=True}"    
     micro:Bind.AtDesignTime="True">
+    
     <Page.Resources>
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
-            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="BoldTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}">
+            <Setter Property="FontWeight" Value="Bold"/>            
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="HeaderTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}">
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="PesosTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}">
+            <Setter Property="Text" Value="ARS"/>
         </Style>
 
         <Style TargetType="Image" x:Key="ImageStyle">
             <Setter Property="Width" Value="48"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="5"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="BorderStyle">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="CornerRadius" Value="3"/>
+            <Setter Property="Padding" Value="10"/>
         </Style>
     </Page.Resources>
 
@@ -38,7 +60,7 @@
         <!--Hamburguer Button-->
         <StackPanel Orientation="Horizontal"  >
             <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol"  ></Button>
-
+            
             <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="36"></TextBlock>
         </StackPanel>
 
@@ -49,8 +71,7 @@
                     <StackPanel Orientation="Horizontal">
 
                         <!--Dolar-Pesos-->
-                        <Border Name="Dolar" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                            BorderThickness="2" BorderBrush="Black" CornerRadius="3" Padding="10">
+                        <Border Name="Dolar" Style="{StaticResource BorderStyle}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -63,31 +84,29 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" HorizontalAlignment="Left"
-                                        TextWrapping="Wrap" Text="Dolar $"  FontSize="24"/>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HeaderTextBlockStyle}" HorizontalAlignment="Left"
+                                       Text="Dolar $"  />
 
                                 <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource ImageStyle}"
                                        Source="ms-appx://App1/Resources/United_States.jpg"></Image>
 
                                 <TextBlock x:Name="textBlockCompraLabel" Grid.Row="1" Grid.Column="0"  Margin="5"
                                            TextWrapping="Wrap" Text="Compra" />
-                                <TextBlock x:Name="Compra" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle}"                                           
+                                <TextBlock x:Name="Compra" Grid.Row="1" Grid.Column="1" Style="{StaticResource BoldTextBlockStyle}"                                           
                                            Text="{Binding Compra}"/>
 
-                                <TextBlock  Grid.Row="1" Grid.Column="2" Margin="5" TextWrapping="Wrap" Text="ARS" />
+                                <TextBlock  Grid.Row="1" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}" />
 
-                                <TextBlock x:Name="TextBlocVentaLabel"  Grid.Row="2" Grid.Column="0"   Text="Venta" TextWrapping="Wrap" Margin="5"/>
-                                <TextBlock x:Name="Venta"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Style="{StaticResource TextBlockStyle}" 
+                                <TextBlock x:Name="TextBlocVentaLabel"  Grid.Row="2" Grid.Column="0" Text="Venta" Style="{StaticResource TextBlockStyle}" />
+                                <TextBlock x:Name="Venta"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Style="{StaticResource BoldTextBlockStyle}" 
                                            Text="{Binding Venta}"/>
-                                <TextBlock  Grid.Row="2" Grid.Column="2" Margin="5"
-                                        TextWrapping="Wrap" Text="ARS" />
+                                <TextBlock  Grid.Row="2" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}"/>
 
                             </Grid>
                         </Border>
 
                         <!--Euro-Pesos-->
-                        <Border Name="Euro" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
-                            BorderThickness="2" BorderBrush="Black" CornerRadius="3" Padding="10" >
+                        <Border Name="Euro" Style="{StaticResource BorderStyle}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -107,15 +126,13 @@
 
 
                                 <TextBlock  Grid.Row="1" Grid.Column="0"  TextWrapping="Wrap" Text="Compra"  Margin="5"/>
-                                <TextBlock x:Name="EuroCompra" Text="{Binding EuroCompra}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBlockStyle}" />
-                                <TextBlock  Grid.Row="1" Grid.Column="2" Margin="5"
-                                        TextWrapping="Wrap" Text="ARS" />
+                                <TextBlock x:Name="EuroCompra" Text="{Binding EuroCompra}" Grid.Row="1" Grid.Column="1" Style="{StaticResource BoldTextBlockStyle}" />
+                                <TextBlock  Grid.Row="1" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}" />
 
                                 <TextBlock Grid.Row="2" Grid.Column="0"   Text="Venta" TextWrapping="Wrap" Margin="5"/>
                                 <TextBlock x:Name="EuroVenta"  Grid.Row="2" Grid.Column="1" 
-                                           Style="{StaticResource TextBlockStyle}" />
-                                <TextBlock  Grid.Row="2" Grid.Column="2" Margin="5"
-                                        TextWrapping="Wrap" Text="ARS" />
+                                           Style="{StaticResource BoldTextBlockStyle}" />
+                                <TextBlock  Grid.Row="2" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}" />
                             </Grid>
                         </Border>
 
