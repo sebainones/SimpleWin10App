@@ -130,12 +130,8 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Resources\Argentina.jpg" />
-    <Content Include="Resources\Argentina.svg" />
     <Content Include="Resources\Euro.png" />
-    <Content Include="Resources\Europe.svg" />
-    <Content Include="Resources\european-flag-vector.jpg" />
     <Content Include="Resources\United_States.jpg" />
-    <Content Include="Resources\United_States.svg" />
     <Content Include="Services\FakeJsonResponse.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -181,10 +177,6 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Resources\United_States.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\InformationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
