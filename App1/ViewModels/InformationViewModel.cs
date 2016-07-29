@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using NotificationsExtensions;
+using NotificationsExtensions.Tiles;
 using Windows.UI.Notifications;
 
 namespace App1.ViewModels
@@ -29,6 +31,46 @@ namespace App1.ViewModels
                 TileUpdater updateMgr = TileUpdateManager.CreateTileUpdaterForApplication();
                 updateMgr.Update(tileNotification);
             }
+        }
+
+
+        //TODO: Do something with this. Maybe move it to a different class.
+        private static void CreateTileContent()
+        {
+            TileContent content = new TileContent()
+            {
+                Visual = new TileVisual()
+                {
+
+                    TileWide = new TileBinding()
+                    {
+                        Content = new TileBindingContentAdaptive()
+                        {
+                            Children =
+                                {
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Jennifer Parker",
+                                        HintStyle = AdaptiveTextStyle.Subtitle
+                                    },
+
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Photos from our trip",
+                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                                    },
+
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Check out these awesome photos I took while in New Zealand!",
+                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                                    }
+                                }
+                        }
+                    },
+
+                }
+            };
         }
     }
 }

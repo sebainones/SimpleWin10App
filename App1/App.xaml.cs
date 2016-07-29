@@ -1,4 +1,5 @@
-﻿using App1.Logging;
+﻿using App1.Error;
+using App1.Logging;
 using App1.Services;
 using App1.ViewModels;
 using App1.Views;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -51,49 +53,11 @@ namespace App1
             //logger for your own code.
             _log = LogManager.GetLog(typeof(App));
 
-        }
-
-        private static void CreateTileContent()
-        {
-            TileContent content = new TileContent()
-            {
-                Visual = new TileVisual()
-                {
-
-                    TileWide = new TileBinding()
-                    {
-                        Content = new TileBindingContentAdaptive()
-                        {
-                            Children =
-                                {
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Jennifer Parker",
-                                        HintStyle = AdaptiveTextStyle.Subtitle
-                                    },
-
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Photos from our trip",
-                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                    },
-
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Check out these awesome photos I took while in New Zealand!",
-                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                    }
-                                }
-                        }
-                    },
-
-                }
-            };
-        }
+        }       
 
         private static void SetApplicationSize()
         {
-            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(520, 740);
+            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(680, 740);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
@@ -251,6 +215,8 @@ namespace App1
                 _container.RegisterWinRTServices();
 
                 _container.Singleton<IRestClient, RestClient>();//RestClient   //FakeRestClient
+                _container.Singleton<IMessageDialog, AdvancedMessageDialog>();
+
 
                 // Register your view models at the container.                
                 _container.PerRequest<MainViewModel>();
@@ -284,6 +250,8 @@ namespace App1
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             _log.Warn(e.Message);
+
+
         }
     }
 }

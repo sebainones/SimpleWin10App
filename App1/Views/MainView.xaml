@@ -12,14 +12,14 @@
     xmlns:micro="using:Caliburn.Micro"
     xmlns:vm="using:App1.ViewModels"
     
-    d:DesignWidth="520"
+    d:DesignWidth="680"
     d:DesignHeight="640"      
     mc:Ignorable="d"           
-    MinWidth="520"
+    MinWidth="680"
     MinHeight="740"        
     d:DataContext="{d:DesignInstance Type=vm:DesignMainViewModel, IsDesignTimeCreatable=True}"    
     micro:Bind.AtDesignTime="True">
-    
+
     <Page.Resources>
         <Style TargetType="TextBlock" x:Key="TextBlockStyle">
             <Setter Property="TextWrapping" Value="Wrap"/>
@@ -27,7 +27,7 @@
         </Style>
 
         <Style TargetType="TextBlock" x:Key="BoldTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}">
-            <Setter Property="FontWeight" Value="Bold"/>            
+            <Setter Property="FontWeight" Value="Bold"/>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="HeaderTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}">
@@ -60,11 +60,11 @@
         <!--Hamburguer Button-->
         <StackPanel Orientation="Horizontal"  >
             <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol"  ></Button>
-            
+
             <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="36"></TextBlock>
         </StackPanel>
 
-        <SplitView Margin="0,50,0,0" CompactPaneLength="48" OpenPaneLength="48" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF0D95B4" DisplayMode="Inline">
+        <SplitView Margin="0,50,0,0" CompactPaneLength="48" OpenPaneLength="228" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF0D95B4" DisplayMode="Inline" >
             <SplitView.Content >
                 <StackPanel Orientation="Vertical" Margin="48,0,0,0">
 
@@ -92,14 +92,14 @@
 
                                 <TextBlock x:Name="textBlockCompraLabel" Grid.Row="1" Grid.Column="0"  Margin="5"
                                            TextWrapping="Wrap" Text="Compra" />
-                                <TextBlock x:Name="Compra" Grid.Row="1" Grid.Column="1" Style="{StaticResource BoldTextBlockStyle}"                                           
-                                           Text="{Binding Compra}"/>
+                                <TextBlock x:Name="DolarCompra" Grid.Row="1" Grid.Column="1" Style="{StaticResource BoldTextBlockStyle}"                                           
+                                           Text="{Binding DolarCompra}"/>
 
                                 <TextBlock  Grid.Row="1" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}" />
 
                                 <TextBlock x:Name="TextBlocVentaLabel"  Grid.Row="2" Grid.Column="0" Text="Venta" Style="{StaticResource TextBlockStyle}" />
-                                <TextBlock x:Name="Venta"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Style="{StaticResource BoldTextBlockStyle}" 
-                                           Text="{Binding Venta}"/>
+                                <TextBlock x:Name="DolarVenta"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Style="{StaticResource BoldTextBlockStyle}" 
+                                           Text="{Binding DolarVenta}"/>
                                 <TextBlock  Grid.Row="2" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}"/>
 
                             </Grid>
@@ -151,9 +151,23 @@
                 </StackPanel>
             </SplitView.Content>
             <SplitView.Pane>
-                <Button x:Name="ShowAbout" Height="48" Width="48" VerticalAlignment="Top">
-                    <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x2148;" />
-                </Button>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3.5*"/>
+
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="ShowAbout" Grid.Row="0" Grid.Column="0" Height="48" Width="48" VerticalAlignment="Top">
+                        <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x2148;" />
+                    </Button>
+                    <TextBlock Text="Información" Grid.Row="0" Grid.Column="1" FontSize="32" VerticalAlignment="Top"></TextBlock>
+                </Grid>
+
             </SplitView.Pane>
         </SplitView>
     </Grid>

@@ -1,4 +1,5 @@
-﻿using App1.Model;
+﻿using App1.Error;
+using App1.Model;
 using App1.Services;
 using AppStudio.Uwp.Controls;
 using Caliburn.Micro;
@@ -7,16 +8,16 @@ using NotificationsExtensions.Tiles;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using Windows.ApplicationModel;
 using Windows.UI.Notifications;
 
 namespace App1.ViewModels
 {
-    public class MainViewModel : ViewModelBase, ISomeViewModel
+    public class MainViewModel : ViewModelBase
     {
         private INavigationService _pageNavigationService;
         private IRestClient _restClient;
+        private IMessageDialog _messageDialog;
 
         public ObservableCollection<NavigationItem> MenuItems { get; }
         public Type InitialPage { get; }
@@ -28,12 +29,13 @@ namespace App1.ViewModels
               this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient) : base(pageNavigationService)
+        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog) : base(pageNavigationService)
         {
             Caption = "Cotización en Argentina";
 
             _pageNavigationService = pageNavigationService;
             _restClient = restClient;
+            _messageDialog = messageDialog;
 
             if (!DesignMode.DesignModeEnabled)
             {
@@ -84,25 +86,25 @@ namespace App1.ViewModels
             IsPaneOpen = !IsPaneOpen;
         }
 
-        private double compra;
-        public double Compra
+        private double dolarCompra;
+        public double DolarCompra
         {
-            get { return compra; }
+            get { return dolarCompra; }
             set
             {
-                compra = value;
-                NotifyOfPropertyChange(() => Compra);
+                dolarCompra = value;
+                NotifyOfPropertyChange(() => DolarCompra);
             }
         }
 
-        private double venta;
-        public double Venta
+        private double dolarVenta;
+        public double DolarVenta
         {
-            get { return venta; }
+            get { return dolarVenta; }
             set
             {
-                venta = value;
-                NotifyOfPropertyChange(() => Venta);
+                dolarVenta = value;
+                NotifyOfPropertyChange(() => DolarVenta);
             }
         }
 
@@ -149,13 +151,17 @@ namespace App1.ViewModels
             if (response != null)
                 PopulateRates(response);
             else
+            {
                 ShowError();
+                PopulateFakeRates();
+            }
         }
 
         private void ShowError()
         {
-            //TODO: IMplement this with the proper error mechanism
-            PopulateFakeRates();
+            string erroMessage = "Connection problem";
+            Log.Warn(erroMessage);
+            _messageDialog.SimpleMessageDialog(erroMessage);
         }
 
         private void PopulateFakeRates()
@@ -174,8 +180,8 @@ namespace App1.ViewModels
         {
             if (arsRate.Dolar.HasValue)
             {
-                Compra = arsRate.Dolar.value_buy;
-                Venta = arsRate.Dolar.value_sell;
+                DolarCompra = arsRate.Dolar.value_buy;
+                DolarVenta = arsRate.Dolar.value_sell;
             }
 
             if (arsRate.Euro.HasValue)
@@ -207,19 +213,19 @@ namespace App1.ViewModels
             subTitle.HintStyle = AdaptiveTextStyle.Body;
             subTitle.Text = "Dolar Argentina";
             subgroup1.Children.Add(subTitle);
-            
 
 
 
-            var subgroup2 = new AdaptiveSubgroup();                        
+
+            var subgroup2 = new AdaptiveSubgroup();
             //Create a bodysubtile
             var bodyTitle = new AdaptiveText();
             bodyTitle.HintAlign = AdaptiveTextAlign.Left;
-            bodyTitle.Text = "Compra";
+            bodyTitle.Text = "DolarCompra";
 
             var bodyTitleValue = new AdaptiveText();
             bodyTitleValue.HintAlign = AdaptiveTextAlign.Right;
-            bodyTitleValue.Text = Compra.ToString();
+            bodyTitleValue.Text = DolarCompra.ToString();
 
             subgroup2.Children.Add(bodyTitle);
             subgroup2.Children.Add(bodyTitleValue);
