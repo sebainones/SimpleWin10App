@@ -161,30 +161,30 @@ namespace App1.ViewModels
         private void PopulateFakeRates()
         {
             ArsRate fakeArsRate = new ArsRate();
-            fakeArsRate.oficial = new Oficial();
-            fakeArsRate.oficial_euro = new OficialEuro();
-            fakeArsRate.oficial.value_buy = 10.99;
-            fakeArsRate.oficial.value_sell = 11.99;
-            fakeArsRate.last_update = DateTime.Now.ToString("d MMM yyyy");
+            fakeArsRate.Dolar = new Currency();
+            fakeArsRate.Euro = new Currency();
+            fakeArsRate.Dolar.value_buy = 10.99;
+            fakeArsRate.Dolar.value_sell = 11.99;
+            fakeArsRate.LastUpdate = DateTime.Now.ToString("d MMM yyyy");
 
             PopulateRates(fakeArsRate);
         }
 
         private void PopulateRates(ArsRate arsRate)
         {
-            if (arsRate.oficial.HasValue)
+            if (arsRate.Dolar.HasValue)
             {
-                Compra = arsRate.oficial.value_buy;
-                Venta = arsRate.oficial.value_sell;
+                Compra = arsRate.Dolar.value_buy;
+                Venta = arsRate.Dolar.value_sell;
             }
 
-            if (arsRate.oficial_euro.HasValue)
+            if (arsRate.Euro.HasValue)
             {
-                EuroCompra = arsRate.oficial_euro.value_buy;
-                EuroVenta = arsRate.oficial_euro.value_sell;
+                EuroCompra = arsRate.Euro.value_buy;
+                EuroVenta = arsRate.Euro.value_sell;
             }
 
-            if (DateTime.TryParse(arsRate.last_update, out LastUpdate))
+            if (DateTime.TryParse(arsRate.LastUpdate, out LastUpdate))
             {
                 LastUpdated = LastUpdate.ToString("d MMM yyyy");
             }
