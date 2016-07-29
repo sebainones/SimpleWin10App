@@ -3,6 +3,8 @@ using App1.Services;
 using App1.ViewModels;
 using App1.Views;
 using Caliburn.Micro;
+using NotificationsExtensions;
+using NotificationsExtensions.Tiles;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -32,12 +34,13 @@ namespace App1
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
             Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
-
+                     
             SetApplicationSize();
 
             InitializeComponent();
 
             Suspending += OnSuspending;
+
             UnhandledException += App_UnhandledException;
 
 #if DEBUG
@@ -48,6 +51,44 @@ namespace App1
             //logger for your own code.
             _log = LogManager.GetLog(typeof(App));
 
+        }
+
+        private static void CreateTileContent()
+        {
+            TileContent content = new TileContent()
+            {
+                Visual = new TileVisual()
+                {
+
+                    TileWide = new TileBinding()
+                    {
+                        Content = new TileBindingContentAdaptive()
+                        {
+                            Children =
+                                {
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Jennifer Parker",
+                                        HintStyle = AdaptiveTextStyle.Subtitle
+                                    },
+
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Photos from our trip",
+                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                                    },
+
+                                    new AdaptiveText()
+                                    {
+                                        Text = "Check out these awesome photos I took while in New Zealand!",
+                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
+                                    }
+                                }
+                        }
+                    },
+
+                }
+            };
         }
 
         private static void SetApplicationSize()
@@ -81,6 +122,14 @@ namespace App1
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+
+#if DEBUG
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                this.DebugSettings.EnableFrameRateCounter = true;
+            }
+#endif
+
             try
             {
                 // I am launching my main view here

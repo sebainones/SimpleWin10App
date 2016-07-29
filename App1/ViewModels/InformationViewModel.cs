@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using Windows.UI.Notifications;
 
 namespace App1.ViewModels
 {
@@ -14,6 +15,20 @@ namespace App1.ViewModels
         public void GoHome()
         {
             _pageNavigationService.For<MainViewModel>().Navigate();
+        }
+
+        public void UpdateTile()
+        {
+            var template = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text01);
+            var childNode = template?.GetElementsByTagName("text");
+            if (childNode != null)
+            {
+                childNode[0].InnerText = "Actualizado";
+
+                TileNotification tileNotification = new TileNotification(template);
+                TileUpdater updateMgr = TileUpdateManager.CreateTileUpdaterForApplication();
+                updateMgr.Update(tileNotification);
+            }
         }
     }
 }

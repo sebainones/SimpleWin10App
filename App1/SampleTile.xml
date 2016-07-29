@@ -1,0 +1,42 @@
+<tile> 
+  <visual>
+
+    <binding template="TileSmall" hint-textStacking="center">
+      <text hint-align="center">Lun</text>
+      <text hint-align="center" hint-style="body">20</text>
+    </binding>
+
+    <binding template="TileMedium" branding="name" displayName="Monday 22">
+      <text hint-wrap="true" hint-maxLines="2">Snowboarding with Mark</text>
+      <text hint-style="captionSubtle">Fri: 9:00 AM</text>
+    </binding>
+
+    <binding template="TileWide" branding="nameAndLogo" displayName="Monday 22">
+      <text>Snowboarding with Mark</text>
+      <text hint-style="captionSubtle">Mt. Baker</text>
+      <text hint-style="captionSubtle">Tomorrow: 9:00 AM – 5:00 PM</text>
+    </binding>
+
+    <binding template="TileLarge" branding="nameAndLogo" displayName="Monday 22">
+      <group>
+        <subgroup>
+          <text hint-wrap="true">Snowboarding with Mark</text>
+          <text hint-style="captionSubtle">Mt. Baker</text>
+          <text hint-style="captionSubtle">Tomorrow: 9:00 AM – 5:00 PM</text>
+        </subgroup>
+      </group>
+      
+      <text />
+
+      <group>
+        <subgroup>
+          <text hint-wrap="true">Casper Baby Pants</text>
+          <text hint-style="captionSubtle">Hollywood Bowl</text>
+          <text hint-style="captionSubtle">Tomorrow: 8:00 PM – 11:00 PM</text>
+        </subgroup>
+      </group>
+    </binding>
+
+  </visual>
+
+</tile>

@@ -2,11 +2,14 @@
 using App1.Services;
 using AppStudio.Uwp.Controls;
 using Caliburn.Micro;
+using NotificationsExtensions;
+using NotificationsExtensions.Tiles;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using Windows.ApplicationModel;
+using Windows.UI.Notifications;
 
 namespace App1.ViewModels
 {
@@ -35,17 +38,8 @@ namespace App1.ViewModels
             if (!DesignMode.DesignModeEnabled)
             {
                 GetExchangeRates();
-            }
-        }
 
-        private string _myMessage;
-        public string MyMessage
-        {
-            get { return _myMessage; }
-            set
-            {
-                _myMessage = value;
-                NotifyOfPropertyChange(() => MyMessage);
+                CreateAdaptiveLayout();
             }
         }
 
@@ -78,7 +72,7 @@ namespace App1.ViewModels
             {
                 _pageNavigationService.For<InformationViewModel>().Navigate();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
 
                 throw;
@@ -134,6 +128,8 @@ namespace App1.ViewModels
             }
         }
 
+        private DateTime LastUpdate;
+
         private string lastUpdated;
         public string LastUpdated
         {
@@ -150,18 +146,115 @@ namespace App1.ViewModels
         {
             var response = await _restClient.Get<ArsRate>();
 
-            PopulateRates(response);
+            if (response != null)
+                PopulateRates(response);
+            else
+                ShowError();
+        }
+
+        private void ShowError()
+        {
+            //TODO: IMplement this with the proper error mechanism
+            PopulateFakeRates();
+        }
+
+        private void PopulateFakeRates()
+        {
+            ArsRate fakeArsRate = new ArsRate();
+            fakeArsRate.oficial = new Oficial();
+            fakeArsRate.oficial_euro = new OficialEuro();
+            fakeArsRate.oficial.value_buy = 10.99;
+            fakeArsRate.oficial.value_sell = 11.99;
+            fakeArsRate.last_update = DateTime.Now.ToString("d MMM yyyy");
+
+            PopulateRates(fakeArsRate);
         }
 
         private void PopulateRates(ArsRate arsRate)
         {
-            Compra = arsRate.oficial.value_buy;
-            Venta = arsRate.oficial.value_sell;
+            if (arsRate.oficial.HasValue)
+            {
+                Compra = arsRate.oficial.value_buy;
+                Venta = arsRate.oficial.value_sell;
+            }
 
-            EuroCompra = arsRate.oficial_euro.value_buy;
-            EuroVenta = arsRate.oficial_euro.value_sell;
-            LastUpdated = DateTime.Parse(arsRate.last_update).ToString("d MMM yyyy");
+            if (arsRate.oficial_euro.HasValue)
+            {
+                EuroCompra = arsRate.oficial_euro.value_buy;
+                EuroVenta = arsRate.oficial_euro.value_sell;
+            }
+
+            if (DateTime.TryParse(arsRate.last_update, out LastUpdate))
+            {
+                LastUpdated = LastUpdate.ToString("d MMM yyyy");
+            }
         }
 
+        private void CreateAdaptiveLayout()
+        {
+            //Create a TileBinding
+            var tilebinding = new TileBinding();
+            //Create a TileContent
+            var tileContent = new TileBindingContentAdaptive();
+            tileContent.TextStacking = TileTextStacking.Center;
+            //Create a groups and subgroups
+            var tileGroup = new AdaptiveGroup();
+
+            var subgroup1 = new AdaptiveSubgroup();
+
+            //Create a subtitle
+            var subTitle = new AdaptiveText();
+            subTitle.HintStyle = AdaptiveTextStyle.Body;
+            subTitle.Text = "Dolar Argentina";
+            subgroup1.Children.Add(subTitle);
+            
+
+
+
+            var subgroup2 = new AdaptiveSubgroup();                        
+            //Create a bodysubtile
+            var bodyTitle = new AdaptiveText();
+            bodyTitle.HintAlign = AdaptiveTextAlign.Left;
+            bodyTitle.Text = "Compra";
+
+            var bodyTitleValue = new AdaptiveText();
+            bodyTitleValue.HintAlign = AdaptiveTextAlign.Right;
+            bodyTitleValue.Text = Compra.ToString();
+
+            subgroup2.Children.Add(bodyTitle);
+            subgroup2.Children.Add(bodyTitleValue);
+
+
+            //tileGroup.Children.Add(subgroup1);
+            tileGroup.Children.Add(subgroup2);
+
+            //tileContent.Children.Add(subTitle);
+            //tileContent.Children.Add(bodyTitle);
+            //tileContent.Children.Add(bodyTitleValue);
+
+            tileContent.Children.Add(tileGroup);
+            tilebinding.Content = tileContent;
+
+            //Create visual object
+            var tileVisual = new TileVisual();
+            tileVisual.TileWide = tilebinding;
+
+            //Create tile object
+            var tileObject = new TileContent();
+            tileObject.Visual = tileVisual;
+
+            var xmltext = tileObject.GetContent();
+            Update(xmltext);
+
+        }
+
+        private void Update(string xmldocumentinfo)
+        {
+            var xmldocument = new Windows.Data.Xml.Dom.XmlDocument();
+            xmldocument.LoadXml(xmldocumentinfo);
+            TileNotification tileNotification = new TileNotification(xmldocument);
+            TileUpdater updateMgr = TileUpdateManager.CreateTileUpdaterForApplication();
+            updateMgr.Update(tileNotification);
+        }
     }
 }

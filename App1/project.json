@@ -6,6 +6,7 @@
     "Microsoft.ApplicationInsights.WindowsApps": "1.0.0",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
     "Newtonsoft.Json": "8.0.3",
+    "NotificationsExtensions.Win10": "14332.0.2",
     "WindowsAppStudio.Uwp": "1.4.6",
     "xunit.runner.devices": "2.1.0"
   },

@@ -8,9 +8,16 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock x:Name="textBlock" Margin="20,10,0,0" TextWrapping="Wrap" Text="ANOTHER VIEW" FontSize="36" VerticalAlignment="Top" Height="110"/>
-        <Button x:Name="GoHome" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,365,0,0" Width="155"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        
+        <TextBlock x:Name="textBlock" Grid.Row="0" Margin="10" TextWrapping="Wrap" Text="ANOTHER VIEW" FontSize="36"/>
+        <Button x:Name="UpdateTile" Grid.Row="1" Content="Update Tile" HorizontalAlignment="Left" Margin="10" Width="auto"/>
+        <Button x:Name="GoHome" Grid.Row="2" Content="Back" HorizontalAlignment="Left" Margin="10" Width="auto"/>
+
+
     </Grid>
 </Page>
