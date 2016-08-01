@@ -2,6 +2,6 @@
 {
     public interface IMessageDialog
     {
-        void SimpleMessageDialog(string message);
+        void SimpleMessageDialog(string message, string title);
     }
 }

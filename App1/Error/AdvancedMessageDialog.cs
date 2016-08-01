@@ -5,9 +5,17 @@ namespace App1.Error
 {
     internal class AdvancedMessageDialog : IMessageDialog
     {
-        public async void SimpleMessageDialog(string message)
+        public async void SimpleMessageDialog(string message, string title)
         {
-            var dialog = new MessageDialog(message);
+            MessageDialog dialog;
+
+            if (string.IsNullOrEmpty(title))
+            {
+                dialog = new MessageDialog(message);
+            }
+            else
+                dialog = new MessageDialog(message, title);
+
             await dialog.ShowAsync();
         }
     }

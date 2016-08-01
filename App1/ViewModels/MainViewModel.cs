@@ -159,10 +159,13 @@ namespace App1.ViewModels
 
         private void ShowError()
         {
-            string erroMessage = "Connection problem";
+            string erroMessage = "Problema de Conectividad";
+
             Log.Warn(erroMessage);
-            _messageDialog.SimpleMessageDialog(erroMessage);
+
+            _messageDialog.SimpleMessageDialog(erroMessage, ErrorHandler.GetDescriptionFromEnumValue(ErrorStatus.Warning));
         }
+
 
         private void PopulateFakeRates()
         {
@@ -171,6 +174,8 @@ namespace App1.ViewModels
             fakeArsRate.Euro = new Currency();
             fakeArsRate.Dolar.value_buy = 10.99;
             fakeArsRate.Dolar.value_sell = 11.99;
+            fakeArsRate.Euro.value_buy = 0.01;
+            fakeArsRate.Euro.value_sell = 0.01;
             fakeArsRate.LastUpdate = DateTime.Now.ToString("d MMM yyyy");
 
             PopulateRates(fakeArsRate);
@@ -180,14 +185,14 @@ namespace App1.ViewModels
         {
             if (arsRate.Dolar.HasValue)
             {
-                DolarCompra = arsRate.Dolar.value_buy;
-                DolarVenta = arsRate.Dolar.value_sell;
+                DolarCompra = Math.Round(arsRate.Dolar.value_buy, 2);
+                DolarVenta = Math.Round(arsRate.Dolar.value_sell, 2); ;
             }
 
             if (arsRate.Euro.HasValue)
             {
-                EuroCompra = arsRate.Euro.value_buy;
-                EuroVenta = arsRate.Euro.value_sell;
+                EuroCompra = Math.Round(arsRate.Euro.value_buy,2);
+                EuroVenta = Math.Round(arsRate.Euro.value_sell,2);
             }
 
             if (DateTime.TryParse(arsRate.LastUpdate, out LastUpdate))
