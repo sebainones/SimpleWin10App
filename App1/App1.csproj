@@ -153,6 +153,8 @@
     <Compile Include="Services\FakeRestClient.cs" />
     <Compile Include="Services\IRestClient.cs" />
     <Compile Include="Services\RestClient.cs" />
+    <Compile Include="Tiles\ITileManager.cs" />
+    <Compile Include="Tiles\TileManager.cs" />
     <Compile Include="ViewModels\DesignMainViewModel.cs" />
     <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

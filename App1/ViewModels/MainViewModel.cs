@@ -1,15 +1,14 @@
-﻿using App1.Error;
+﻿using App1.Background;
+using App1.Error;
 using App1.Model;
 using App1.Services;
+using App1.Tiles;
 using AppStudio.Uwp.Controls;
 using Caliburn.Micro;
-using NotificationsExtensions;
-using NotificationsExtensions.Tiles;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.ApplicationModel;
-using Windows.UI.Notifications;
 
 namespace App1.ViewModels
 {
@@ -18,6 +17,7 @@ namespace App1.ViewModels
         private INavigationService _pageNavigationService;
         private IRestClient _restClient;
         private IMessageDialog _messageDialog;
+        private ITileManager _tileManager;
 
         public ObservableCollection<NavigationItem> MenuItems { get; }
         public Type InitialPage { get; }
@@ -29,20 +29,34 @@ namespace App1.ViewModels
               this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog) : base(pageNavigationService)
+        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog, ITileManager tileManager) : base(pageNavigationService)
         {
             Caption = "Cotización en Argentina";
 
             _pageNavigationService = pageNavigationService;
             _restClient = restClient;
             _messageDialog = messageDialog;
+            _tileManager = tileManager;
 
             if (!DesignMode.DesignModeEnabled)
             {
                 GetExchangeRates();
 
-                CreateAdaptiveLayout();
+                RegisterBackGroundTask();
             }
+        }
+
+        public void RegisterBackGroundTask()
+        {
+            BackgroundTaskManager backgroundTaskManager = new BackgroundTaskManager();
+            var backGroundTask = backgroundTaskManager.RegisterBackGroundTask().Result;
+
+            backGroundTask.Completed += BackGroundTask_Completed;
+        }
+
+        private void BackGroundTask_Completed(Windows.ApplicationModel.Background.BackgroundTaskRegistration sender, Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs args)
+        {
+            UpdateTile();
         }
 
         private string _caption;
@@ -166,7 +180,6 @@ namespace App1.ViewModels
             _messageDialog.SimpleMessageDialog(erroMessage, ErrorHandler.GetDescriptionFromEnumValue(ErrorStatus.Warning));
         }
 
-
         private void PopulateFakeRates()
         {
             ArsRate fakeArsRate = new ArsRate();
@@ -191,8 +204,8 @@ namespace App1.ViewModels
 
             if (arsRate.Euro.HasValue)
             {
-                EuroCompra = Math.Round(arsRate.Euro.value_buy,2);
-                EuroVenta = Math.Round(arsRate.Euro.value_sell,2);
+                EuroCompra = Math.Round(arsRate.Euro.value_buy, 2);
+                EuroVenta = Math.Round(arsRate.Euro.value_sell, 2);
             }
 
             if (DateTime.TryParse(arsRate.LastUpdate, out LastUpdate))
@@ -201,71 +214,11 @@ namespace App1.ViewModels
             }
         }
 
-        private void CreateAdaptiveLayout()
+        private void UpdateTile()
         {
-            //Create a TileBinding
-            var tilebinding = new TileBinding();
-            //Create a TileContent
-            var tileContent = new TileBindingContentAdaptive();
-            tileContent.TextStacking = TileTextStacking.Center;
-            //Create a groups and subgroups
-            var tileGroup = new AdaptiveGroup();
+            var xmlText = _tileManager.CreateAdaptiveTile("Dolar Argentina", "DolarCompra", DolarCompra.ToString());
 
-            var subgroup1 = new AdaptiveSubgroup();
-
-            //Create a subtitle
-            var subTitle = new AdaptiveText();
-            subTitle.HintStyle = AdaptiveTextStyle.Body;
-            subTitle.Text = "Dolar Argentina";
-            subgroup1.Children.Add(subTitle);
-
-
-
-
-            var subgroup2 = new AdaptiveSubgroup();
-            //Create a bodysubtile
-            var bodyTitle = new AdaptiveText();
-            bodyTitle.HintAlign = AdaptiveTextAlign.Left;
-            bodyTitle.Text = "DolarCompra";
-
-            var bodyTitleValue = new AdaptiveText();
-            bodyTitleValue.HintAlign = AdaptiveTextAlign.Right;
-            bodyTitleValue.Text = DolarCompra.ToString();
-
-            subgroup2.Children.Add(bodyTitle);
-            subgroup2.Children.Add(bodyTitleValue);
-
-
-            //tileGroup.Children.Add(subgroup1);
-            tileGroup.Children.Add(subgroup2);
-
-            //tileContent.Children.Add(subTitle);
-            //tileContent.Children.Add(bodyTitle);
-            //tileContent.Children.Add(bodyTitleValue);
-
-            tileContent.Children.Add(tileGroup);
-            tilebinding.Content = tileContent;
-
-            //Create visual object
-            var tileVisual = new TileVisual();
-            tileVisual.TileWide = tilebinding;
-
-            //Create tile object
-            var tileObject = new TileContent();
-            tileObject.Visual = tileVisual;
-
-            var xmltext = tileObject.GetContent();
-            Update(xmltext);
-
-        }
-
-        private void Update(string xmldocumentinfo)
-        {
-            var xmldocument = new Windows.Data.Xml.Dom.XmlDocument();
-            xmldocument.LoadXml(xmldocumentinfo);
-            TileNotification tileNotification = new TileNotification(xmldocument);
-            TileUpdater updateMgr = TileUpdateManager.CreateTileUpdaterForApplication();
-            updateMgr.Update(tileNotification);
+            _tileManager.Update(xmlText);
         }
     }
 }

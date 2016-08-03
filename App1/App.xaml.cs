@@ -1,6 +1,7 @@
 ﻿using App1.Error;
 using App1.Logging;
 using App1.Services;
+using App1.Tiles;
 using App1.ViewModels;
 using App1.Views;
 using Caliburn.Micro;
@@ -33,8 +34,7 @@ namespace App1
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
             Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
-                                   
-            
+
             SetApplicationSize();
 
             InitializeComponent();
@@ -53,7 +53,6 @@ namespace App1
 
         }
 
-        
         private static void SetApplicationSize()
         {
             ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(680, 740);
@@ -220,6 +219,7 @@ namespace App1
                 // Register your view models at the container.                
                 _container.PerRequest<MainViewModel>();
                 _container.PerRequest<InformationViewModel>();
+                _container.PerRequest<ITileManager, TileManager>();
             }
             catch (Exception exception)
             {
@@ -252,7 +252,5 @@ namespace App1
 
 
         }
-
-
     }
 }

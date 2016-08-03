@@ -16,8 +16,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="textBlock" Grid.Row="0" Margin="10" TextWrapping="Wrap" Text="ANOTHER VIEW" FontSize="36"/>
-        <Button x:Name="UpdateTile" Grid.Row="1" Content="Update Tile" HorizontalAlignment="Left" Margin="10" Width="auto"/>
-        <Button x:Name="RegisterBackGroundTask" Grid.Row="2" Content="Register Background Task" HorizontalAlignment="Left" Margin="10" Width="auto"/>
+        <Button x:Name="UpdateTile" Grid.Row="1" Content="Update Tile" HorizontalAlignment="Left" Margin="10" Width="auto"/>        
         <Button x:Name="GoHome" Grid.Row="3" Content="Back" HorizontalAlignment="Left" Margin="10" Width="auto"/>
 
 
