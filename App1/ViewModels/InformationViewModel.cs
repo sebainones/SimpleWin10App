@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using App1.Background;
+using Caliburn.Micro;
 using NotificationsExtensions;
 using NotificationsExtensions.Tiles;
 using Windows.UI.Notifications;
@@ -71,6 +72,21 @@ namespace App1.ViewModels
 
                 }
             };
+        }
+
+
+        public void RegisterBackGroundTask()
+        {
+            BackgroundTaskManager backgroundTaskManager = new BackgroundTaskManager();
+            var backGroundTask = backgroundTaskManager.RegisterBackGroundTask().Result;
+
+            backGroundTask.Completed += BackGroundTask_Completed;
+
+        }
+
+        private void BackGroundTask_Completed(Windows.ApplicationModel.Background.BackgroundTaskRegistration sender, Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs args)
+        {
+            UpdateTile();
         }
     }
 }

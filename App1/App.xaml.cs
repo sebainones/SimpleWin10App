@@ -4,14 +4,11 @@ using App1.Services;
 using App1.ViewModels;
 using App1.Views;
 using Caliburn.Micro;
-using NotificationsExtensions;
-using NotificationsExtensions.Tiles;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -36,7 +33,8 @@ namespace App1
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
             Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
-                     
+                                   
+            
             SetApplicationSize();
 
             InitializeComponent();
@@ -53,8 +51,9 @@ namespace App1
             //logger for your own code.
             _log = LogManager.GetLog(typeof(App));
 
-        }       
+        }
 
+        
         private static void SetApplicationSize()
         {
             ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(680, 740);
@@ -253,5 +252,7 @@ namespace App1
 
 
         }
+
+
     }
 }
