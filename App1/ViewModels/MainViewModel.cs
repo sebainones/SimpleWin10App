@@ -40,7 +40,7 @@ namespace RateApp.ViewModels
 
             if (!DesignMode.DesignModeEnabled)
             {
-                GetExchangeRates();
+                PopulateRates();
 
                 RegisterBackGroundTask();
             }
@@ -49,13 +49,14 @@ namespace RateApp.ViewModels
         public void RegisterBackGroundTask()
         {
             BackgroundTaskManager backgroundTaskManager = new BackgroundTaskManager();
-            var backGroundTask = backgroundTaskManager.RegisterBackGroundTask().Result;
+            var backGroundTask = backgroundTaskManager.RegisterBackGroundTask("UpdateTask", "RateTileUpdater.UpdateTask").Result;
 
             backGroundTask.Completed += BackGroundTask_Completed;
         }
 
         private void BackGroundTask_Completed(Windows.ApplicationModel.Background.BackgroundTaskRegistration sender, Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs args)
         {
+            // UI updates should be performed asynchronously, to avoid holding up the UI thread
             UpdateTile();
         }
 
@@ -158,7 +159,7 @@ namespace RateApp.ViewModels
             _pageNavigationService.For<InformationViewModel>().Navigate();
         }
 
-        public async void GetExchangeRates()
+        public async void PopulateRates()
         {
             var response = await _restClient.Get<ArsRate>();
 

@@ -7,32 +7,37 @@ namespace RateApp.Background
 {
     public class BackgroundTaskManager
     {
-        public async Task<IBackgroundTaskRegistration> RegisterBackGroundTask()
+        public async Task<IBackgroundTaskRegistration> RegisterBackGroundTask(string taskName, string entryPoint)
         {
             //var hasPermission = await IsAppHasPermission();
 
             //if (hasPermission)
             //{
-                //TODO: The name of the task and the TaskEntry point should be in some way paramters
-                var backgorundTaskRegistered = IsBackgroundTaskRegistered("UpdateTask");
+            //TODO: The name of the task and the TaskEntry point should be in some way paramters
+            var backgorundTaskRegistered = IsBackgroundTaskRegistered(taskName);
 
-                if (backgorundTaskRegistered != null)
-                    return backgorundTaskRegistered;
-
-                var objBg = new BackgroundTaskBuilder()
-                {
-                    Name = "UpdateTask",
-                    TaskEntryPoint = "RateTileUpdater.UpdateTask"
-                };
-
-                objBg.SetTrigger(new SystemTrigger(SystemTriggerType.InternetAvailable, false));
-                //objBg.AddCondition(new SystemCondition(SystemConditionType.UserPresent)); //Just in case we disable it.
-
-                backgorundTaskRegistered = objBg.Register();
+            if (backgorundTaskRegistered != null)
                 return backgorundTaskRegistered;
+
+            BackgroundTaskBuilder backgorundBuilder = CreateBackgroundTask(taskName, entryPoint);
+
+            backgorundBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.InternetAvailable, false));
+            //objBg.AddCondition(new SystemCondition(SystemConditionType.UserPresent)); //Just in case we disable it.
+
+            return backgorundBuilder.Register();
+
             //}
 
             //return null;
+        }
+
+        private static BackgroundTaskBuilder CreateBackgroundTask(string taskName, string entryPoint)
+        {
+            return new BackgroundTaskBuilder()
+            {
+                Name = taskName,
+                TaskEntryPoint = entryPoint
+            };
         }
 
         ///For Windows Phone Store apps, you must call RequestAccessAsync before attempting to register any background task.
