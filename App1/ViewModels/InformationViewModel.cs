@@ -1,7 +1,7 @@
-﻿using App1.Tiles;
+﻿using RateApp.Tiles;
 using Caliburn.Micro;
 
-namespace App1.ViewModels
+namespace RateApp.ViewModels
 {
     public class InformationViewModel : ViewModelBase
     {

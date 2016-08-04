@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
-namespace App1.Background
+namespace RateApp.Background
 {
     public class BackgroundTaskManager
     {

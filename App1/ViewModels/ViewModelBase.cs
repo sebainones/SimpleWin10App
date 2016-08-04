@@ -1,6 +1,6 @@
 ﻿using Caliburn.Micro;
 
-namespace App1.ViewModels
+namespace RateApp.ViewModels
 {
     public abstract class ViewModelBase : Screen
     {

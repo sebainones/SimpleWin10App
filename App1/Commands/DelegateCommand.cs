@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Commands.App1
+namespace Commands.RateApp
 {
     /// <summary>
     /// Generic implementation of <see cref="ICommand"/>.

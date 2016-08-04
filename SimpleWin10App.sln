@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App1", "App1\App1.csproj", "{A44B0618-1F3F-4AED-A66C-AD168E972A97}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateApp", "App1\RateApp.csproj", "{A44B0618-1F3F-4AED-A66C-AD168E972A97}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RateTileUpdater", "RateTileUpdater\RateTileUpdater.csproj", "{324599C9-F257-47A9-BD87-4988D86F49CC}"
 EndProject

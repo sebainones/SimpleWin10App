@@ -1,4 +1,4 @@
-﻿namespace App1.Tiles
+﻿namespace RateApp.Tiles
 {
     public interface ITileManager
     {

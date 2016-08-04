@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace App1.Services
+namespace RateApp.Services
 {
     public interface IRestClient
     {

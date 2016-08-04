@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace App1.Error
+namespace RateApp.Error
 {
     public static class ErrorHandler
     {

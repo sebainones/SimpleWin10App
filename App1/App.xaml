@@ -1,15 +1,15 @@
 ﻿<!-- Without Caliburn-->
 <!--<Application    
-    x:Class="App1.App"
+    x:Class="RateApp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:App1"
+    xmlns:local="using:RateApp"
     RequestedTheme="Light">
 </Application>-->
 
 
 <cm:CaliburnApplication
-                        x:Class="App1.App"
+                        x:Class="RateApp.App"
                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                        
                         xmlns:micro="using:Caliburn.Micro"    

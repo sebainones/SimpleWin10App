@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace App1.Model
+namespace RateApp.Model
 {
     internal class ArsRate
     {

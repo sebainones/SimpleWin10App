@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace App1.Services
+namespace RateApp.Services
 {
     internal class FakeRestClient : IRestClient
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Popups;
 
-namespace App1.Error
+namespace RateApp.Error
 {
     internal class AdvancedMessageDialog : IMessageDialog
     {

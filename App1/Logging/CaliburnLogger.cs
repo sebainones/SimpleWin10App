@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace App1.Logging
+namespace RateApp.Logging
 {
     public class CaliburnLogger : ILog
     {    

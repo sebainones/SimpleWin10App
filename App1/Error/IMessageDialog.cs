@@ -1,4 +1,4 @@
-﻿namespace App1.Error
+﻿namespace RateApp.Error
 {
     public interface IMessageDialog
     {

@@ -2,7 +2,7 @@
 using NotificationsExtensions.Tiles;
 using Windows.UI.Notifications;
 
-namespace App1.Tiles
+namespace RateApp.Tiles
 {
     public class TileManager : ITileManager
     {

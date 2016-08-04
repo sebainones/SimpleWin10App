@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace App1.Services
+namespace RateApp.Services
 {
     public class RestClient : IRestClient
     {

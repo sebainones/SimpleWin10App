@@ -7,8 +7,8 @@
     <ProjectGuid>{A44B0618-1F3F-4AED-A66C-AD168E972A97}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>App1</RootNamespace>
-    <AssemblyName>App1</AssemblyName>
+    <RootNamespace>RateApp</RootNamespace>
+    <AssemblyName>RateApp</AssemblyName>
     <DefaultLanguage>es-AR</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>

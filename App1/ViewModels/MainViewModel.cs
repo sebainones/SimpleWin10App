@@ -1,8 +1,8 @@
-﻿using App1.Background;
-using App1.Error;
-using App1.Model;
-using App1.Services;
-using App1.Tiles;
+﻿using RateApp.Background;
+using RateApp.Error;
+using RateApp.Model;
+using RateApp.Services;
+using RateApp.Tiles;
 using AppStudio.Uwp.Controls;
 using Caliburn.Micro;
 using System;
@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.ApplicationModel;
 
-namespace App1.ViewModels
+namespace RateApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {

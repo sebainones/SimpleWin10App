@@ -1,9 +1,9 @@
-﻿using App1.Error;
-using App1.Logging;
-using App1.Services;
-using App1.Tiles;
-using App1.ViewModels;
-using App1.Views;
+﻿using RateApp.Error;
+using RateApp.Logging;
+using RateApp.Services;
+using RateApp.Tiles;
+using RateApp.ViewModels;
+using RateApp.Views;
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace App1
+namespace RateApp
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

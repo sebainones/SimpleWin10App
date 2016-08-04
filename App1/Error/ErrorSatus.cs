@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace App1.Error
+namespace RateApp.Error
 {
     public enum ErrorStatus
     {
