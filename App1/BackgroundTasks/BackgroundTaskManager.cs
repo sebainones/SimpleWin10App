@@ -3,32 +3,40 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
-namespace RateApp.Background
+namespace RateApp.BackgroundTasks
 {
     public class BackgroundTaskManager
     {
-        public async Task<IBackgroundTaskRegistration> RegisterBackGroundTask(string taskName, string entryPoint)
+        public  IBackgroundTaskRegistration RegisterBackGroundTask(string taskName, string entryPoint)
         {
-            //var hasPermission = await IsAppHasPermission();
+            return RegisterBackGroundTask(taskName, entryPoint, new SystemTrigger(SystemTriggerType.InternetAvailable, false), null);
+        }
 
-            //if (hasPermission)
-            //{
-            //TODO: The name of the task and the TaskEntry point should be in some way paramters
-            var backgorundTaskRegistered = IsBackgroundTaskRegistered(taskName);
+        //
+        // Register a background task with the specified taskEntryPoint, name, trigger,
+        // and condition (optional).
+        //
+        // taskEntryPoint: Task entry point for the background task.
+        // taskName: A name for the background task.
+        // trigger: The trigger for the background task.
+        // condition: Optional parameter. A conditional event that must be true for the task to fire.
+        public static IBackgroundTaskRegistration RegisterBackGroundTask(string taskName, string entryPoint, IBackgroundTrigger trigger, IBackgroundCondition condition)
+        {
+            var backgorundTaskRegistered = GetBackgroundTaskIfAlreadyRegistered(taskName);
 
             if (backgorundTaskRegistered != null)
                 return backgorundTaskRegistered;
 
             BackgroundTaskBuilder backgorundBuilder = CreateBackgroundTask(taskName, entryPoint);
 
-            backgorundBuilder.SetTrigger(new SystemTrigger(SystemTriggerType.InternetAvailable, false));
-            //objBg.AddCondition(new SystemCondition(SystemConditionType.UserPresent)); //Just in case we disable it.
+            backgorundBuilder.SetTrigger(trigger);
+
+            if (condition != null)
+            {
+                backgorundBuilder.AddCondition(condition);
+            }
 
             return backgorundBuilder.Register();
-
-            //}
-
-            //return null;
         }
 
         private static BackgroundTaskBuilder CreateBackgroundTask(string taskName, string entryPoint)
@@ -51,6 +59,9 @@ namespace RateApp.Background
                 ///Does not prompt the user, but must be called before registering any background tasks. 
                 ///You do not need to add the app to the lock screen in order to use background tasks in Windows 10,
                 ///but you still need to call RequestAccessAsync to request background access.
+                ///
+                ///On Windows 10, this call is only required for the set of background tasks that require your app to be on the lock screen to run!!!
+
                 bgStatus = await BackgroundExecutionManager.RequestAccessAsync();
             }
             catch (Exception ex)
@@ -79,10 +90,9 @@ namespace RateApp.Background
             return status;
         }
 
-        private static IBackgroundTaskRegistration IsBackgroundTaskRegistered(string bgTaskName)
+        private static IBackgroundTaskRegistration GetBackgroundTaskIfAlreadyRegistered(string bgTaskName)
         {
-            var bgTask = BackgroundTaskRegistration.AllTasks.Where(taskReg => taskReg.Value.Name == bgTaskName).Select(bgTask1 => bgTask1.Value).FirstOrDefault();
-            return bgTask;
+            return BackgroundTaskRegistration.AllTasks.Where(taskReg => taskReg.Value.Name == bgTaskName).Select(bgTask1 => bgTask1.Value).FirstOrDefault();
         }
     }
 }

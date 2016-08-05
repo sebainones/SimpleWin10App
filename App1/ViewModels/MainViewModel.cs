@@ -1,5 +1,4 @@
-﻿using RateApp.Background;
-using RateApp.Error;
+﻿using RateApp.Error;
 using RateApp.Model;
 using RateApp.Services;
 using RateApp.Tiles;
@@ -9,6 +8,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.ApplicationModel;
+using RateApp.BackgroundTasks;
 
 namespace RateApp.ViewModels
 {
@@ -49,9 +49,10 @@ namespace RateApp.ViewModels
         public void RegisterBackGroundTask()
         {
             BackgroundTaskManager backgroundTaskManager = new BackgroundTaskManager();
-            var backGroundTask = backgroundTaskManager.RegisterBackGroundTask("UpdateTask", "RateTileUpdater.UpdateTask").Result;
+            var backGroundTask = backgroundTaskManager.RegisterBackGroundTask("UpdateTask", "RateTileUpdater.UpdateTask");
 
             backGroundTask.Completed += BackGroundTask_Completed;
+
         }
 
         private void BackGroundTask_Completed(Windows.ApplicationModel.Background.BackgroundTaskRegistration sender, Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs args)

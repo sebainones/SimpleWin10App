@@ -140,7 +140,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Background\BackgroundTaskManager.cs" />
+    <Compile Include="BackgroundTasks\BackgroundTaskManager.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Error\ErrorHandler.cs" />
     <Compile Include="Error\ErrorSatus.cs" />
