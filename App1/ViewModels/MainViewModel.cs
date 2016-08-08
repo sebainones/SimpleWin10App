@@ -21,7 +21,8 @@ namespace RateApp.ViewModels
 
         public ObservableCollection<NavigationItem> MenuItems { get; }
         public Type InitialPage { get; }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+        public override event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName = null)
         {
