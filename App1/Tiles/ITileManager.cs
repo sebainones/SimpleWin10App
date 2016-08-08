@@ -2,7 +2,7 @@
 {
     public interface ITileManager
     {
-        string CreateAdaptiveTile(string title, string caption, string value);
+        string CreateAdaptiveTile(string prefix, string leftTitle, string leftValue, string rightTitle, string rightValuevalue);
 
         void Update(string xmldocumentinfo);
 

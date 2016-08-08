@@ -22,13 +22,13 @@ namespace RateApp.ViewModels
         public ObservableCollection<NavigationItem> MenuItems { get; }
         public Type InitialPage { get; }
 
-        public override event PropertyChangedEventHandler PropertyChanged;
+        //public override event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName = null)
-        {
-            PropertyChanged?.Invoke(
-              this, new PropertyChangedEventArgs(propertyName));
-        }
+        //protected virtual void OnPropertyChanged(string propertyName = null)
+        //{
+        //    PropertyChanged?.Invoke(
+        //      this, new PropertyChangedEventArgs(propertyName));
+        //}
 
         public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog, ITileManager tileManager) : base(pageNavigationService)
         {
@@ -219,7 +219,7 @@ namespace RateApp.ViewModels
 
         private void UpdateTile()
         {
-            var xmlText = _tileManager.CreateAdaptiveTile("Dolar Argentina", "DolarCompra", DolarCompra.ToString());
+            var xmlText = _tileManager.CreateAdaptiveTile("Dolar","Compra", DolarCompra.ToString(), "Venta", DolarVenta.ToString());
 
             _tileManager.Update(xmlText);
         }

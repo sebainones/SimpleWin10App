@@ -4,54 +4,23 @@ using Windows.UI.Notifications;
 
 namespace RateApp.Tiles
 {
+    //TODO: INterface segregation??? Between Creation and Update of tiles...
     public class TileManager : ITileManager
     {
-        //TODO: INterface segregation??? Between Creation and Update of tiles...
-
-        public string CreateAdaptiveTile(string title, string caption, string value)
+        public string CreateAdaptiveTile(string prefix, string leftTitle, string leftValue, string rightTitle, string rightValuevalue)
         {
-            // Create a TileBinding
-            var tilebinding = new TileBinding();
-            //Create a TileContent
-            var tileContent = new TileBindingContentAdaptive();
-            tileContent.TextStacking = TileTextStacking.Center;
-            //Create a groups and subgroups
-            var tileGroup = new AdaptiveGroup();
+            // Create a TileBinding for Large and Wide
+            var bigTilebinding = new TileBinding();
+            bigTilebinding.Content = CreateTileContent(prefix, leftTitle, leftValue, rightTitle, rightValuevalue);
 
-            var subgroup1 = new AdaptiveSubgroup();
-
-            //Create a subtitle
-            var subTitle = new AdaptiveText();
-            subTitle.HintStyle = AdaptiveTextStyle.Body;
-            subTitle.Text = title;
-            subgroup1.Children.Add(subTitle);
-
-            var subgroup2 = new AdaptiveSubgroup();
-            //Create a bodysubtile
-            var bodyTitle = new AdaptiveText();
-            bodyTitle.HintAlign = AdaptiveTextAlign.Left;
-            bodyTitle.Text = caption;
-
-            var bodyTitleValue = new AdaptiveText();
-            bodyTitleValue.HintAlign = AdaptiveTextAlign.Right;
-            bodyTitleValue.Text = value;
-            subgroup2.Children.Add(bodyTitle);
-            subgroup2.Children.Add(bodyTitleValue);
-
-
-            //tileGroup.Children.Add(subgroup1);
-            tileGroup.Children.Add(subgroup2);
-
-            //tileContent.Children.Add(subTitle);
-            //tileContent.Children.Add(bodyTitle);
-            //tileContent.Children.Add(bodyTitleValue);
-
-            tileContent.Children.Add(tileGroup);
-            tilebinding.Content = tileContent;
+            var mediumTileBinding = new TileBinding();
+            mediumTileBinding.Content = CreateTileContent(string.Empty, leftTitle, leftValue, rightTitle, rightValuevalue);
 
             //Create visual object
             var tileVisual = new TileVisual();
-            tileVisual.TileWide = tilebinding;
+            tileVisual.TileLarge = tileVisual.TileWide = bigTilebinding;
+
+            tileVisual.TileMedium = mediumTileBinding;
 
             //Create tile object
             var tileObject = new TileContent();
@@ -59,7 +28,40 @@ namespace RateApp.Tiles
 
             return tileObject.GetContent();
         }
-        
+
+        private static TileBindingContentAdaptive CreateTileContent(string prefix, string leftTitle, string leftValue, string rightTitle, string rightValuevalue)
+        {
+            //Create a TileContent
+            var tileContent = new TileBindingContentAdaptive();
+            tileContent.TextStacking = TileTextStacking.Center;
+            //Create a groups and subgroups
+            var tileGroup = new AdaptiveGroup();
+
+            AdaptiveSubgroup columnGroupLeft = CreateAdaptiveGroupColumn(prefix + " " + leftTitle, leftValue);
+            AdaptiveSubgroup CoulumnGroupRight = CreateAdaptiveGroupColumn(prefix + " " + rightTitle, rightValuevalue);
+
+            tileGroup.Children.Add(columnGroupLeft);
+            tileGroup.Children.Add(CoulumnGroupRight);
+
+
+            tileContent.Children.Add(tileGroup);
+            return tileContent;
+        }
+
+        private static AdaptiveSubgroup CreateAdaptiveGroupColumn(string title, string value)
+        {
+            AdaptiveSubgroup adaptiveColumnGroup = new AdaptiveSubgroup();
+            var contentTitle = new AdaptiveText();
+            contentTitle.Text = title;
+
+            var contenteValue = new AdaptiveText();
+            contenteValue.Text = value;
+
+            adaptiveColumnGroup.Children.Add(contentTitle);
+            adaptiveColumnGroup.Children.Add(contenteValue);
+            return adaptiveColumnGroup;
+        }
+
         //TODO: Remove this if not being used. Use it as example for the CreateAdaptiveTile method.
         private static void CreateTileContent()
         {
@@ -99,7 +101,6 @@ namespace RateApp.Tiles
             };
         }
 
-        
         public void Update(string xmldocumentinfo)
         {
             var xmldocument = new Windows.Data.Xml.Dom.XmlDocument();

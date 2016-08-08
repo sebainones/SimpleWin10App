@@ -97,11 +97,14 @@ namespace RateApp.BackgroundTasks
 
             switch (bgStatus)
             {
-                case BackgroundAccessStatus.Denied:
+                case BackgroundAccessStatus.DeniedBySystemPolicy:
                 case BackgroundAccessStatus.Unspecified:
                     break;
-                case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
-                case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
+                case BackgroundAccessStatus.AlwaysAllowed:
+                case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
+                    status = true;
+                    break;
+                default://AllowedMayUseActiveRealTimeConnectivity
                     status = true;
                     break;
             }
