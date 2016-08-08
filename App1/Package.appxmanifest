@@ -33,7 +33,7 @@
       <Extensions>
         <Extension Category="windows.backgroundTasks" EntryPoint="RateTileUpdater.UpdateTask">
           <BackgroundTasks>
-            <Task Type="systemEvent" />
+            <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
       </Extensions>

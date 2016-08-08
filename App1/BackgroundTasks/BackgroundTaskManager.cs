@@ -7,53 +7,72 @@ namespace RateApp.BackgroundTasks
 {
     public class BackgroundTaskManager
     {
-        public  IBackgroundTaskRegistration RegisterBackGroundTask(string taskName, string entryPoint)
+        public async Task<IBackgroundTaskRegistration> RegisterBackGroundTask(string taskName, string entryPoint)
         {
-            return RegisterBackGroundTask(taskName, entryPoint, new SystemTrigger(SystemTriggerType.InternetAvailable, false), null);
+            //If the OneShot property is false, freshnessTime specifies the interval between
+            //recurring tasks.If FreshnessTime is set to less than 15 minutes, an exception
+            //is thrown when attempting to register the background task.
+
+            //create time trigger
+            var timeTrigger = new TimeTrigger(15, false);
+
+            return await RegisterBackGroundTask(taskName, entryPoint, timeTrigger, null);
         }
 
-        //
-        // Register a background task with the specified taskEntryPoint, name, trigger,
-        // and condition (optional).
-        //
-        // taskEntryPoint: Task entry point for the background task.
-        // taskName: A name for the background task.
-        // trigger: The trigger for the background task.
-        // condition: Optional parameter. A conditional event that must be true for the task to fire.
-        public static IBackgroundTaskRegistration RegisterBackGroundTask(string taskName, string entryPoint, IBackgroundTrigger trigger, IBackgroundCondition condition)
+        /// <summary>
+        /// Register a background task with the specified taskEntryPoint, name, trigger,
+        /// and condition (optional).
+        /// </summary>
+        /// <param name="taskName">A name for the background task.</param>
+        /// <param name="taskEntryPoint">Task entry point for the background task.</param>
+        /// <param name="trigger">The trigger for the background task.</param>
+        /// <param name="condition">An optional conditional event that must be true for the task to fire.</param>
+        public async static Task<IBackgroundTaskRegistration> RegisterBackGroundTask(string taskName, string taskEntryPoint, IBackgroundTrigger trigger, IBackgroundCondition condition)
         {
+            var appHasPermission = await IsAppHasPermission();
+            
+            if (!appHasPermission)
+                return null;
+
             var backgorundTaskRegistered = GetBackgroundTaskIfAlreadyRegistered(taskName);
 
             if (backgorundTaskRegistered != null)
                 return backgorundTaskRegistered;
 
-            BackgroundTaskBuilder backgorundBuilder = CreateBackgroundTask(taskName, entryPoint);
+            BackgroundTaskBuilder backgorundBuilder = CreateBackgroundTask(taskName, taskEntryPoint);
 
             backgorundBuilder.SetTrigger(trigger);
 
+            SetBackgroundTaskCondtion(condition, backgorundBuilder);
+                        
+            return  backgorundBuilder.Register();            
+        }
+
+        private static void SetBackgroundTaskCondtion(IBackgroundCondition condition, BackgroundTaskBuilder backgorundBuilder)
+        {
             if (condition != null)
             {
                 backgorundBuilder.AddCondition(condition);
-            }
 
-            return backgorundBuilder.Register();
+                // If the condition changes while the background task is executing then it will be canceled.
+                backgorundBuilder.CancelOnConditionLoss = true;
+            }
         }
 
-        private static BackgroundTaskBuilder CreateBackgroundTask(string taskName, string entryPoint)
+        private static BackgroundTaskBuilder CreateBackgroundTask(string taskName, string taskEntryPoint)
         {
             return new BackgroundTaskBuilder()
             {
                 Name = taskName,
-                TaskEntryPoint = entryPoint
+                TaskEntryPoint = taskEntryPoint
             };
         }
 
         ///For Windows Phone Store apps, you must call RequestAccessAsync before attempting to register any background task.
         ///On Windows, this call is only required for the set of background tasks that require your app to be on the lock screen to run
-        private async Task<bool> IsAppHasPermission()
+        private static async Task<bool> IsAppHasPermission()
         {
-            BackgroundAccessStatus bgStatus = default(BackgroundAccessStatus);
-
+            BackgroundAccessStatus access = default(BackgroundAccessStatus);
             try
             {
                 ///Does not prompt the user, but must be called before registering any background tasks. 
@@ -61,18 +80,18 @@ namespace RateApp.BackgroundTasks
                 ///but you still need to call RequestAccessAsync to request background access.
                 ///
                 ///On Windows 10, this call is only required for the set of background tasks that require your app to be on the lock screen to run!!!
-
-                bgStatus = await BackgroundExecutionManager.RequestAccessAsync();
+                //required call
+                access = await BackgroundExecutionManager.RequestAccessAsync();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return IsBackgroundAccessValid(bgStatus);
+            return IsBackgroundAccessValid(access);
         }
 
-        private bool IsBackgroundAccessValid(BackgroundAccessStatus bgStatus)
+        private static bool IsBackgroundAccessValid(BackgroundAccessStatus bgStatus)
         {
             var status = default(bool);
 

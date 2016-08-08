@@ -10,7 +10,7 @@ namespace RateApp.Error
         Warning,
         [Display(Description = "Error")]
         Error,
-        [Display(Description = "Crítico")]
+        [Display(Description = "Error Crítico")]
         Critical              
     }
 }

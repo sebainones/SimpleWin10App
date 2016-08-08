@@ -46,13 +46,13 @@ namespace RateApp.ViewModels
             }
         }
 
-        public void RegisterBackGroundTask()
+        public async void RegisterBackGroundTask()
         {
             BackgroundTaskManager backgroundTaskManager = new BackgroundTaskManager();
-            var backGroundTask = backgroundTaskManager.RegisterBackGroundTask("UpdateTask", "RateTileUpdater.UpdateTask");
+
+            var backGroundTask = await backgroundTaskManager.RegisterBackGroundTask("UpdateTask", "RateTileUpdater.UpdateTask");
 
             backGroundTask.Completed += BackGroundTask_Completed;
-
         }
 
         private void BackGroundTask_Completed(Windows.ApplicationModel.Background.BackgroundTaskRegistration sender, Windows.ApplicationModel.Background.BackgroundTaskCompletedEventArgs args)

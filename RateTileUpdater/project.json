@@ -1,6 +1,8 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0"
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
+    "NotificationsExtensions": "1.0.0",
+    "NotificationsExtensions.Win10": "14332.0.2"
   },
   "frameworks": {
     "uap10.0": {}

@@ -43,6 +43,11 @@ namespace RateApp
 
             UnhandledException += App_UnhandledException;
 
+
+            //TODO: Do we need to work with some local settings? For instance local resources as message strings?
+//            ApplicationData.Current.LocalSettings.
+
+
 #if DEBUG
             //Logger for Caliburn messages.
             LogManager.GetLog = type => new CaliburnLogger(type);
@@ -201,7 +206,10 @@ namespace RateApp
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+            
             deferral.Complete();
+
+            
         }
 
         //Called after and when  DisplayRootView is called!!!
@@ -248,9 +256,10 @@ namespace RateApp
 
         private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            var messageDialog = _container.GetInstance<IMessageDialog>();
+
+            messageDialog.SimpleMessageDialog("Error no esperado. Por favor cierre la aplicación", ErrorHandler.GetDescriptionFromEnumValue(ErrorStatus.Critical));
             _log.Warn(e.Message);
-
-
         }
     }
 }
