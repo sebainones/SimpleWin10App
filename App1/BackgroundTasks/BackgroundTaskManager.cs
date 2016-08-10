@@ -5,9 +5,9 @@ using Windows.ApplicationModel.Background;
 
 namespace RateApp.BackgroundTasks
 {
-    public class BackgroundTaskManager
+    public static class BackgroundTaskManager
     {
-        public async Task<IBackgroundTaskRegistration> RegisterBackGroundTaskAsync(string taskName, string entryPoint)
+        public async static Task<IBackgroundTaskRegistration> RegisterBackGroundTaskAsync(string taskName, string entryPoint)
         {
             //If the OneShot property is false, freshnessTime specifies the interval between
             //recurring tasks.If FreshnessTime is set to less than 15 minutes, an exception
