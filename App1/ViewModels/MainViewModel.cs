@@ -19,9 +19,6 @@ namespace RateApp.ViewModels
         private IMessageDialog _messageDialog;
         private ITileManager _tileManager;
 
-        public ObservableCollection<NavigationItem> MenuItems { get; }
-        public Type InitialPage { get; }
-
         //public override event PropertyChangedEventHandler PropertyChanged;
 
         //protected virtual void OnPropertyChanged(string propertyName = null)
@@ -217,7 +214,7 @@ namespace RateApp.ViewModels
 
         private void UpdateTile()
         {
-            var xmlText = _tileManager.CreateAdaptiveTile("Dolar","Compra", DolarCompra.ToString(), "Venta", DolarVenta.ToString());
+            var xmlText = _tileManager.CreateAdaptiveTile("Dolar", "Compra", DolarCompra.ToString(), "Venta", DolarVenta.ToString());
 
             _tileManager.Update(xmlText);
         }

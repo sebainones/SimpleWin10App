@@ -21,10 +21,14 @@
     micro:Bind.AtDesignTime="True">
 
     <Page.Resources>
-        <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+
+        <Style TargetType="TextBlock" x:Key="TextBlockBaseStyle">
+            <Setter Property="Foreground" Value="GhostWhite"></Setter>
             <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle"  BasedOn="{StaticResource TextBlockBaseStyle}">
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="Foreground" Value="White"></Setter>            
         </Style>
 
         <Style TargetType="TextBlock" x:Key="BoldTextBlockStyle" BasedOn="{StaticResource TextBlockStyle}">
@@ -53,7 +57,7 @@
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="CornerRadius" Value="3"/>
             <Setter Property="Padding" Value="10"/>
-            <Setter Property="BorderBrush" Value="White"></Setter>
+            <Setter Property="BorderBrush" Value="GhostWhite"></Setter>
         </Style>
     </Page.Resources>
 
@@ -61,9 +65,9 @@
 
         <!--Hamburguer Button-->
         <StackPanel Orientation="Horizontal"  >
-            <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol" Foreground="White"></Button>
+            <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol" Foreground="GhostWhite"></Button>
 
-            <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="35" Foreground="WhiteSmoke"></TextBlock>
+            <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="35" Style="{StaticResource TextBlockBaseStyle}"></TextBlock>
         </StackPanel>
 
         <SplitView Margin="0,50,0,0" CompactPaneLength="48" OpenPaneLength="228" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF1A83EA" DisplayMode="Inline" >
@@ -143,7 +147,7 @@
 
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Stretch" >
                         <TextBlock Text="Última actualización:" Style="{StaticResource HeaderTextBlockStyle}"   FontSize="18"/>
-                        <TextBlock x:Name="LastUpdated"  TextWrapping="Wrap"  Margin="40,5,5,5" FontSize="18" Foreground="White"
+                        <TextBlock x:Name="LastUpdated"  Margin="40,5,5,5" FontSize="18" Style="{StaticResource TextBlockBaseStyle}"
                                                    Text="{Binding LastUpdated}" />
                     </StackPanel>
 
@@ -166,9 +170,9 @@
 
                     </Grid.ColumnDefinitions>
                     <Button x:Name="ShowAbout" Grid.Row="0" Grid.Column="0" Height="48" Width="48" VerticalAlignment="Top">
-                        <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x2148;" Foreground="White" />
+                        <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x2148;" Foreground="GhostWhite" />
                     </Button>
-                    <TextBlock Text="Información" Grid.Row="0" Grid.Column="1" FontSize="32" VerticalAlignment="Top" Foreground="White"></TextBlock>
+                    <TextBlock Text="Información" Grid.Row="0" Grid.Column="1" FontSize="32" VerticalAlignment="Top" Style="{StaticResource TextBlockBaseStyle}"></TextBlock>
                 </Grid>
 
             </SplitView.Pane>
