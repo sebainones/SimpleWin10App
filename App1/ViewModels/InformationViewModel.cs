@@ -1,5 +1,5 @@
-﻿using RateApp.Tiles;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
+using RateApp.Tiles;
 
 namespace RateApp.ViewModels
 {

@@ -1,10 +1,10 @@
-﻿using RateApp.Error;
+﻿using Caliburn.Micro;
+using RateApp.Error;
 using RateApp.Logging;
 using RateApp.Services;
 using RateApp.Tiles;
 using RateApp.ViewModels;
 using RateApp.Views;
-using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
 using System.Reflection;

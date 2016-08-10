@@ -1,14 +1,11 @@
-﻿using RateApp.Error;
+﻿using Caliburn.Micro;
+using RateApp.BackgroundTasks;
+using RateApp.Error;
 using RateApp.Model;
 using RateApp.Services;
 using RateApp.Tiles;
-using AppStudio.Uwp.Controls;
-using Caliburn.Micro;
 using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using Windows.ApplicationModel;
-using RateApp.BackgroundTasks;
 
 namespace RateApp.ViewModels
 {
