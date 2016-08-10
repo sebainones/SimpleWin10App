@@ -63,7 +63,7 @@
         <StackPanel Orientation="Horizontal"  >
             <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol" Foreground="White"></Button>
 
-            <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="36" Foreground="WhiteSmoke"></TextBlock>
+            <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="35" Foreground="WhiteSmoke"></TextBlock>
         </StackPanel>
 
         <SplitView Margin="0,50,0,0" CompactPaneLength="48" OpenPaneLength="228" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF1A83EA" DisplayMode="Inline" >

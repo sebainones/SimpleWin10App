@@ -43,15 +43,15 @@ namespace RateApp.ViewModels
             {
                 PopulateRates();
 
-                RegisterBackGroundTask();
+                RegisterBackGroundTaskAsync();
             }
         }
 
-        public async void RegisterBackGroundTask()
+        public async void RegisterBackGroundTaskAsync()
         {
             BackgroundTaskManager backgroundTaskManager = new BackgroundTaskManager();
 
-            var backGroundTask = await backgroundTaskManager.RegisterBackGroundTask("UpdateTask", "RateTileUpdater.UpdateTask");
+            var backGroundTask = await backgroundTaskManager.RegisterBackGroundTaskAsync("UpdateTask", "RateTileUpdater.UpdateTask");
 
             backGroundTask.Completed += BackGroundTask_Completed;
         }

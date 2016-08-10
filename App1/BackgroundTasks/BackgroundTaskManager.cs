@@ -7,7 +7,7 @@ namespace RateApp.BackgroundTasks
 {
     public class BackgroundTaskManager
     {
-        public async Task<IBackgroundTaskRegistration> RegisterBackGroundTask(string taskName, string entryPoint)
+        public async Task<IBackgroundTaskRegistration> RegisterBackGroundTaskAsync(string taskName, string entryPoint)
         {
             //If the OneShot property is false, freshnessTime specifies the interval between
             //recurring tasks.If FreshnessTime is set to less than 15 minutes, an exception
@@ -16,7 +16,7 @@ namespace RateApp.BackgroundTasks
             //create time trigger
             var timeTrigger = new TimeTrigger(15, false);
 
-            return await RegisterBackGroundTask(taskName, entryPoint, timeTrigger, null);
+            return await RegisterBackGroundTaskAsync(taskName, entryPoint, timeTrigger, null);
         }
 
         /// <summary>
@@ -27,10 +27,10 @@ namespace RateApp.BackgroundTasks
         /// <param name="taskEntryPoint">Task entry point for the background task.</param>
         /// <param name="trigger">The trigger for the background task.</param>
         /// <param name="condition">An optional conditional event that must be true for the task to fire.</param>
-        public async static Task<IBackgroundTaskRegistration> RegisterBackGroundTask(string taskName, string taskEntryPoint, IBackgroundTrigger trigger, IBackgroundCondition condition)
+        public async static Task<IBackgroundTaskRegistration> RegisterBackGroundTaskAsync(string taskName, string taskEntryPoint, IBackgroundTrigger trigger, IBackgroundCondition condition)
         {
-            var appHasPermission = await IsAppHasPermission();
-            
+            var appHasPermission = await IsAppHasPermissionAsync();
+
             if (!appHasPermission)
                 return null;
 
@@ -44,8 +44,8 @@ namespace RateApp.BackgroundTasks
             backgorundBuilder.SetTrigger(trigger);
 
             SetBackgroundTaskCondtion(condition, backgorundBuilder);
-                        
-            return  backgorundBuilder.Register();            
+
+            return backgorundBuilder.Register();
         }
 
         private static void SetBackgroundTaskCondtion(IBackgroundCondition condition, BackgroundTaskBuilder backgorundBuilder)
@@ -70,7 +70,7 @@ namespace RateApp.BackgroundTasks
 
         ///For Windows Phone Store apps, you must call RequestAccessAsync before attempting to register any background task.
         ///On Windows, this call is only required for the set of background tasks that require your app to be on the lock screen to run
-        private static async Task<bool> IsAppHasPermission()
+        private static async Task<bool> IsAppHasPermissionAsync()
         {
             BackgroundAccessStatus access = default(BackgroundAccessStatus);
             try
@@ -97,11 +97,14 @@ namespace RateApp.BackgroundTasks
 
             switch (bgStatus)
             {
-                case BackgroundAccessStatus.DeniedBySystemPolicy:
+                //case BackgroundAccessStatus.DeniedBySystemPolicy:
+                case BackgroundAccessStatus.Denied:
                 case BackgroundAccessStatus.Unspecified:
                     break;
-                case BackgroundAccessStatus.AlwaysAllowed:
-                case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
+                //case BackgroundAccessStatus.AlwaysAllowed:
+                //case BackgroundAccessStatus.AllowedSubjectToSystemPolicy:
+                case BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity:
+                case BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity:
                     status = true;
                     break;
                 default://AllowedMayUseActiveRealTimeConnectivity
