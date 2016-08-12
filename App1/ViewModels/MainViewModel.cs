@@ -1,9 +1,11 @@
 ﻿using Caliburn.Micro;
 using RateApp.BackgroundTasks;
 using RateApp.Error;
+using RateApp.LocalStorage;
 using RateApp.Model;
 using RateApp.Services;
 using RateApp.Tiles;
+using RateApp.Utils;
 using System;
 using Windows.ApplicationModel;
 
@@ -11,20 +13,20 @@ namespace RateApp.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        //TODO: make them readonly??
         private INavigationService _pageNavigationService;
         private IRestClient _restClient;
         private IMessageDialog _messageDialog;
         private ITileManager _tileManager;
+        private ILocalStorage _localStorage;
 
-        //public override event PropertyChangedEventHandler PropertyChanged;
+        private ArsRate previousRates;
 
-        //protected virtual void OnPropertyChanged(string propertyName = null)
-        //{
-        //    PropertyChanged?.Invoke(
-        //      this, new PropertyChangedEventArgs(propertyName));
-        //}
+        public RateIndicator DolarCompraRateIndicator { get; set; }
 
-        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog, ITileManager tileManager) : base(pageNavigationService)
+        public RateIndicator DolarVentaRateIndicator { get; set; }
+
+        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog, ITileManager tileManager, ILocalStorage localStorage) : base(pageNavigationService)
         {
             Caption = "Cotización en Argentina";
 
@@ -32,10 +34,14 @@ namespace RateApp.ViewModels
             _restClient = restClient;
             _messageDialog = messageDialog;
             _tileManager = tileManager;
+            _localStorage = localStorage;
+
+
+            previousRates = new ArsRate();
 
             if (!DesignMode.DesignModeEnabled)
             {
-                PopulateRates();
+                PopulateRatesAsync();
 
                 RegisterBackGroundTaskAsync();
             }
@@ -153,9 +159,9 @@ namespace RateApp.ViewModels
             _pageNavigationService.For<InformationViewModel>().Navigate();
         }
 
-        public async void PopulateRates()
+        public async void PopulateRatesAsync()
         {
-            var response = await _restClient.Get<ArsRate>();
+            var response = await _restClient.GetAsync<ArsRate>();
 
             if (response != null)
                 PopulateRates(response);
@@ -172,36 +178,22 @@ namespace RateApp.ViewModels
 
             Log.Warn(erroMessage);
 
-            _messageDialog.SimpleMessageDialog(erroMessage, ErrorHandler.GetDescriptionFromEnumValue(ErrorStatus.Warning));
+            _messageDialog.SimpleMessageDialogAsync(erroMessage, EnumHandler.GetDescriptionFromEnumValue(ErrorStatus.Warning));
         }
 
         private void PopulateFakeRates()
         {
-            ArsRate fakeArsRate = new ArsRate();
-            fakeArsRate.Dolar = new Currency();
-            fakeArsRate.Euro = new Currency();
-            fakeArsRate.Dolar.value_buy = 10.99;
-            fakeArsRate.Dolar.value_sell = 11.99;
-            fakeArsRate.Euro.value_buy = 0.01;
-            fakeArsRate.Euro.value_sell = 0.01;
-            fakeArsRate.LastUpdate = DateTime.Now.ToString("d MMM yyyy");
+            ArsRate fakeArsRate = new FakeArsRate();
 
             PopulateRates(fakeArsRate);
         }
 
+        //TODO: Complete this functionality properly
         private void PopulateRates(ArsRate arsRate)
         {
-            if (arsRate.Dolar.HasValue)
-            {
-                DolarCompra = Math.Round(arsRate.Dolar.value_buy, 2);
-                DolarVenta = Math.Round(arsRate.Dolar.value_sell, 2); ;
-            }
+            PopulateDolar(arsRate.Dolar, previousRates.Dolar);
 
-            if (arsRate.Euro.HasValue)
-            {
-                EuroCompra = Math.Round(arsRate.Euro.value_buy, 2);
-                EuroVenta = Math.Round(arsRate.Euro.value_sell, 2);
-            }
+            PopulateEuro(arsRate.Euro);
 
             if (DateTime.TryParse(arsRate.LastUpdate, out LastUpdate))
             {
@@ -209,6 +201,75 @@ namespace RateApp.ViewModels
             }
         }
 
+        private void PopulateDolar(Rate currentDolarRate, Rate previousDolarRate)
+        {
+            if (currentDolarRate.HasValue)
+            {
+                DolarCompra = Math.Round(currentDolarRate.Compra, 2);
+                DolarVenta = Math.Round(currentDolarRate.Venta, 2);
+
+                previousDolarRate = TryGetPreviousRate(currentDolarRate);
+
+                if (previousDolarRate.HasValue)
+                    SetDolarComparison(previousRates.Dolar, currentDolarRate, DolarCompraRateIndicator, DolarVentaRateIndicator);
+                else
+                {
+                    var dolarContainer = _localStorage.CreateContainer(currentDolarRate.Name);
+
+                    //TODO: Extension Method for Container????
+                    _localStorage.CreateSetting(dolarContainer, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy), DolarCompra.ToString());
+                    _localStorage.CreateSetting(dolarContainer, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell), DolarVenta.ToString());
+                }
+
+                previousDolarRate.Compra = DolarCompra;
+                previousDolarRate.Venta = DolarVenta;
+            }
+        }
+
+        private void PopulateEuro(Rate euroRate)
+        {
+            if (euroRate.HasValue)
+            {
+                previousRates.Euro = TryGetPreviousRate(euroRate);
+
+                EuroCompra = Math.Round(euroRate.Compra, 2);
+                EuroVenta = Math.Round(euroRate.Venta, 2);
+            }
+        }
+
+        private Rate TryGetPreviousRate(Rate currentRate)
+        {
+            Rate previousRate = new Rate(currentRate.Name);
+
+            //TODO: compare dateTime to see if its previos or from the same date.
+
+            if (_localStorage.SettingHasValue(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy)))
+                previousRate.Compra = double.Parse(_localStorage.GetValueFromSetting(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy)));
+
+            if (_localStorage.SettingHasValue(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell)))
+                previousRate.Venta = double.Parse(_localStorage.GetValueFromSetting(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell)));
+
+            return previousRate;
+        }
+
+        //TODO: refactor this to not use the rateIndicator. Maybe generic or sthg else
+        private void SetDolarComparison(Rate previousDolar, Rate curentDolar, RateIndicator dolarCompraRateIndicator, RateIndicator dolarVentaRateIndicator)
+        {
+            if (curentDolar.Compra > previousDolar.Compra)
+                dolarCompraRateIndicator = RateIndicator.Increased;
+            else if (curentDolar.Compra < previousDolar.Compra)
+                dolarCompraRateIndicator = RateIndicator.Decreased;
+            else
+                dolarCompraRateIndicator = RateIndicator.Equal;
+
+            if (curentDolar.Venta > previousDolar.Venta)
+                dolarVentaRateIndicator = RateIndicator.Increased;
+            else if (curentDolar.Venta < previousDolar.Venta)
+                dolarVentaRateIndicator = RateIndicator.Decreased;
+            else
+                dolarVentaRateIndicator = RateIndicator.Equal;
+        }
+        
         private void UpdateTile()
         {
             var xmlText = _tileManager.CreateAdaptiveTile("Dolar", "Compra", DolarCompra.ToString(), "Venta", DolarVenta.ToString());

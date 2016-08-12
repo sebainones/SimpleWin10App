@@ -8,6 +8,6 @@ namespace RateApp.Services
         string APIId { get; }
         string LatestJsonQuery { get; }
 
-        Task<T> Get<T>();
+        Task<T> GetAsync<T>();
     }
 }

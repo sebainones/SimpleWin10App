@@ -142,19 +142,25 @@
     </Compile>
     <Compile Include="BackgroundTasks\BackgroundTaskManager.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="Error\ErrorHandler.cs" />
+    <Compile Include="Converters\Converter.cs" />
     <Compile Include="Error\ErrorSatus.cs" />
     <Compile Include="Error\IMessageDialog.cs" />
     <Compile Include="Error\AdvancedMessageDialog.cs" />
+    <Compile Include="LocalStorage\ILocalStorage.cs" />
+    <Compile Include="LocalStorage\LocalStorage.cs" />
     <Compile Include="Logging\CaliburnLogger.cs" />
     <Compile Include="Model\ArsRate.cs" />
-    <Compile Include="Model\Currency.cs" />
+    <Compile Include="Model\Rate.cs" />
+    <Compile Include="Model\FakeArsRate.cs" />
+    <Compile Include="Model\RateIndicator.cs" />
+    <Compile Include="Model\RateOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FakeRestClient.cs" />
     <Compile Include="Services\IRestClient.cs" />
     <Compile Include="Services\RestClient.cs" />
     <Compile Include="Tiles\ITileManager.cs" />
     <Compile Include="Tiles\TileManager.cs" />
+    <Compile Include="Utils\EnumHandler.cs" />
     <Compile Include="ViewModels\DesignMainViewModel.cs" />
     <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

@@ -4,8 +4,8 @@ namespace RateApp.ViewModels
 {
     internal class DesignMainViewModel : MainViewModel
     {
-        public DesignMainViewModel() : base(null, null, null, null)
-        {           
+        public DesignMainViewModel() : base(null, null, null, null, null)
+        {
 
             if (Execute.InDesignMode)//(DesignMode.DesignModeEnabled)
             {

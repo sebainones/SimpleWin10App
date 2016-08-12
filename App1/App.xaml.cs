@@ -1,8 +1,10 @@
 ﻿using Caliburn.Micro;
 using RateApp.Error;
+using RateApp.LocalStorage;
 using RateApp.Logging;
 using RateApp.Services;
 using RateApp.Tiles;
+using RateApp.Utils;
 using RateApp.ViewModels;
 using RateApp.Views;
 using System;
@@ -222,6 +224,7 @@ namespace RateApp
 
                 _container.Singleton<IRestClient, RestClient>();//RestClient   //FakeRestClient
                 _container.Singleton<IMessageDialog, AdvancedMessageDialog>();
+                _container.Singleton<ILocalStorage, LocalStorage.LocalStorage>();
 
 
                 // Register your view models at the container.                
@@ -258,7 +261,7 @@ namespace RateApp
         {
             var messageDialog = _container.GetInstance<IMessageDialog>();
 
-            messageDialog.SimpleMessageDialog("Error no esperado. Por favor cierre la aplicación", ErrorHandler.GetDescriptionFromEnumValue(ErrorStatus.Critical));
+            messageDialog.SimpleMessageDialogAsync("Error no esperado. Por favor cierre la aplicación", EnumHandler.GetDescriptionFromEnumValue(ErrorStatus.Critical));
             _log.Warn(e.Message);
         }
     }

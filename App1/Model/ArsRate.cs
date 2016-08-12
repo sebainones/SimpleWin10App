@@ -4,14 +4,27 @@ namespace RateApp.Model
 {
     internal class ArsRate
     {
+        public ArsRate()
+        {
+            Dolar = new Rate("dolar");
+            DolarBlue = new Rate("dolar blue");
+            Euro = new Rate("euro");
+            EuroBLue = new Rate("euro blue");
+        }
+
+        
         [JsonProperty("oficial")]
-        public Currency Dolar { get; set; }
+        public Rate Dolar { get; set; }
+
         [JsonProperty("blue")]
-        public Currency DolarBlue { get; set; }
+        public Rate DolarBlue { get; set; }
+
         [JsonProperty("oficial_euro")]
-        public Currency Euro { get; set; }
+        public Rate Euro { get; set; }
+
         [JsonProperty("blue_euro")]
-        public Currency EuroBLue { get; set; }
+        public Rate EuroBLue { get; set; }
+
         [JsonProperty("last_update")]
         public string LastUpdate { get; set; }
     }

@@ -39,7 +39,7 @@ namespace RateApp.Services
             _log = LogManager.GetLog(typeof(FakeRestClient));
         }
 
-        public async Task<T> Get<T>()
+        public async Task<T> GetAsync<T>()
         {
             T responseJson = default(T);
             try

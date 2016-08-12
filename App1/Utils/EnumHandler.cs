@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace RateApp.Error
+namespace RateApp.Utils
 {
-    public static class ErrorHandler
+    public static class EnumHandler
     {
         public static string GetDescriptionFromEnumValue(Enum value)
         {

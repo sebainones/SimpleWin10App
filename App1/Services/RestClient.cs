@@ -63,7 +63,7 @@ namespace RateApp.Services
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(System.Text.Encoding.ASCII.GetBytes(string.Format("{0}:{1}", LatestJsonQuery, APIId))));
         }
 
-        public async Task<T> Get<T>()
+        public async Task<T> GetAsync<T>()
         {
             T responseJson = default(T);
             try

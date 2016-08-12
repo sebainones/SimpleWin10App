@@ -5,7 +5,7 @@ namespace RateApp.Error
 {
     internal class AdvancedMessageDialog : IMessageDialog
     {
-        public async void SimpleMessageDialog(string message, string title)
+        public async void SimpleMessageDialogAsync(string message, string title)
         {
             MessageDialog dialog;
 
