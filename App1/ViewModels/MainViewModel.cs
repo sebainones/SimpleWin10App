@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using RateApp.BackgroundTasks;
 using RateApp.Error;
-using RateApp.LocalStorage;
+using RateApp.LocalSettings;
 using RateApp.Model;
 using RateApp.Services;
 using RateApp.Tiles;
@@ -14,11 +14,11 @@ namespace RateApp.ViewModels
     public class MainViewModel : ViewModelBase
     {
         //TODO: make them readonly??
-        private INavigationService _pageNavigationService;
-        private IRestClient _restClient;
-        private IMessageDialog _messageDialog;
-        private ITileManager _tileManager;
-        private ILocalStorage _localStorage;
+        private readonly INavigationService _pageNavigationService;
+        private readonly IRestClient _restClient;
+        private readonly IMessageDialog _messageDialog;
+        private readonly ITileManager _tileManager;
+        private readonly ILocalSettings _localSettings;
 
         private ArsRate previousRates;
 
@@ -26,7 +26,7 @@ namespace RateApp.ViewModels
 
         public RateIndicator DolarVentaRateIndicator { get; set; }
 
-        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog, ITileManager tileManager, ILocalStorage localStorage) : base(pageNavigationService)
+        public MainViewModel(INavigationService pageNavigationService, IRestClient restClient, IMessageDialog messageDialog, ITileManager tileManager, ILocalSettings localSettings) : base(pageNavigationService)
         {
             Caption = "Cotización en Argentina";
 
@@ -34,7 +34,7 @@ namespace RateApp.ViewModels
             _restClient = restClient;
             _messageDialog = messageDialog;
             _tileManager = tileManager;
-            _localStorage = localStorage;
+            _localSettings = localSettings;
 
 
             previousRates = new ArsRate();
@@ -195,6 +195,11 @@ namespace RateApp.ViewModels
 
             PopulateEuro(arsRate.Euro);
 
+            PopulateDateTime(arsRate);
+        }
+
+        private void PopulateDateTime(ArsRate arsRate)
+        {
             if (DateTime.TryParse(arsRate.LastUpdate, out LastUpdate))
             {
                 LastUpdated = LastUpdate.ToString("d MMM yyyy");
@@ -211,19 +216,34 @@ namespace RateApp.ViewModels
                 previousDolarRate = TryGetPreviousRate(currentDolarRate);
 
                 if (previousDolarRate.HasValue)
-                    SetDolarComparison(previousRates.Dolar, currentDolarRate, DolarCompraRateIndicator, DolarVentaRateIndicator);
-                else
+                    SetDolarComparison(previousDolarRate, currentDolarRate, DolarCompraRateIndicator, DolarVentaRateIndicator);
+                else //No Previous Rate
                 {
-                    var dolarContainer = _localStorage.CreateContainer(currentDolarRate.Name);
-
-                    //TODO: Extension Method for Container????
-                    _localStorage.CreateSetting(dolarContainer, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy), DolarCompra.ToString());
-                    _localStorage.CreateSetting(dolarContainer, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell), DolarVenta.ToString());
+                    _localSettings.CreateSetting(currentDolarRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy), DolarCompra.ToString());
+                    _localSettings.CreateSetting(currentDolarRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell), DolarVenta.ToString());
+                    _localSettings.CreateSetting(currentDolarRate.Name, "date", DateTime.Now.ToString());
                 }
 
-                previousDolarRate.Compra = DolarCompra;
-                previousDolarRate.Venta = DolarVenta;
+                UpdatePreviousRate(previousDolarRate, DolarCompra, DolarVenta);
             }
+        }
+
+        private void UpdatePreviousRate(Rate previousRate, double buy, double sell)
+        {
+            //TODO: Update only when is not the same date and the buy and sell are newer datetime
+            //DATETIMENOW but without minutes or secondssss
+
+            var previousDate = DateTime.Parse(_localSettings.TryGetValue(previousRate.Name, "date"));
+            
+            var dateCompare = DateTime.Compare(previousDate, DateTime.Now);
+
+            if (dateCompare < 0)//previousDate earlier => needs update
+            {
+                _localSettings.UpdateSetting(previousRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy), buy.ToString());
+                _localSettings.UpdateSetting(previousRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell), sell.ToString());
+                _localSettings.UpdateSetting(previousRate.Name,"date", DateTime.Now.ToString());
+            }
+
         }
 
         private void PopulateEuro(Rate euroRate)
@@ -240,36 +260,36 @@ namespace RateApp.ViewModels
         private Rate TryGetPreviousRate(Rate currentRate)
         {
             Rate previousRate = new Rate(currentRate.Name);
-
-            //TODO: compare dateTime to see if its previos or from the same date.
-
-            if (_localStorage.SettingHasValue(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy)))
-                previousRate.Compra = double.Parse(_localStorage.GetValueFromSetting(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy)));
-
-            if (_localStorage.SettingHasValue(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell)))
-                previousRate.Venta = double.Parse(_localStorage.GetValueFromSetting(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell)));
-
+            try
+            {
+                previousRate.Compra = double.Parse(_localSettings.TryGetValue(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy)));
+                previousRate.Venta = double.Parse(_localSettings.TryGetValue(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell)));
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
             return previousRate;
         }
 
         //TODO: refactor this to not use the rateIndicator. Maybe generic or sthg else
-        private void SetDolarComparison(Rate previousDolar, Rate curentDolar, RateIndicator dolarCompraRateIndicator, RateIndicator dolarVentaRateIndicator)
+        private void SetDolarComparison(Rate previousRate, Rate curentRate, RateIndicator dolarCompraRateIndicator, RateIndicator dolarVentaRateIndicator)
         {
-            if (curentDolar.Compra > previousDolar.Compra)
+            if (curentRate.Compra > previousRate.Compra)
                 dolarCompraRateIndicator = RateIndicator.Increased;
-            else if (curentDolar.Compra < previousDolar.Compra)
+            else if (curentRate.Compra < previousRate.Compra)
                 dolarCompraRateIndicator = RateIndicator.Decreased;
             else
                 dolarCompraRateIndicator = RateIndicator.Equal;
 
-            if (curentDolar.Venta > previousDolar.Venta)
+            if (curentRate.Venta > previousRate.Venta)
                 dolarVentaRateIndicator = RateIndicator.Increased;
-            else if (curentDolar.Venta < previousDolar.Venta)
+            else if (curentRate.Venta < previousRate.Venta)
                 dolarVentaRateIndicator = RateIndicator.Decreased;
             else
                 dolarVentaRateIndicator = RateIndicator.Equal;
         }
-        
+
         private void UpdateTile()
         {
             var xmlText = _tileManager.CreateAdaptiveTile("Dolar", "Compra", DolarCompra.ToString(), "Venta", DolarVenta.ToString());

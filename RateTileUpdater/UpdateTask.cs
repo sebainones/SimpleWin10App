@@ -15,15 +15,10 @@ namespace RateTileUpdater
 
             Debug.WriteLine("Background " + taskInstance.Task.Name + " Starting...");
 
-            // TODO: Insert code to start one or more asynchronous methods using the
+            // Insert code to start one or more asynchronous methods using the
             //       await keyword, for example:
             //
             // await ExampleMethodAsync();
-
-            //TODO: Remove this.
-            //var toast = NotificationsExtensions.ToastContent.ToastContentFactory.CreateToastText01();
-            //toast.TextBodyWrap.Text = "ACTUALIZANDOOOOOOOOOOO!";
-            //Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Show(toast.CreateNotification());
 
             _deferral.Complete();
 

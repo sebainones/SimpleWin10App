@@ -146,8 +146,8 @@
     <Compile Include="Error\ErrorSatus.cs" />
     <Compile Include="Error\IMessageDialog.cs" />
     <Compile Include="Error\AdvancedMessageDialog.cs" />
-    <Compile Include="LocalStorage\ILocalStorage.cs" />
-    <Compile Include="LocalStorage\LocalStorage.cs" />
+    <Compile Include="LocalSettings\ILocalSettings.cs" />
+    <Compile Include="LocalSettings\LocalSettings.cs" />
     <Compile Include="Logging\CaliburnLogger.cs" />
     <Compile Include="Model\ArsRate.cs" />
     <Compile Include="Model\Rate.cs" />
