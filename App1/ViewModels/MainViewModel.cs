@@ -44,6 +44,8 @@ namespace RateApp.ViewModels
                 PopulateRatesAsync();
 
                 RegisterBackGroundTaskAsync();
+
+                UpdateTile();
             }
         }
 
