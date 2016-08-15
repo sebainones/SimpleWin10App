@@ -79,7 +79,7 @@
             <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="35" Style="{StaticResource TextBlockBaseStyle}"></TextBlock>
         </StackPanel>
 
-        <SplitView Margin="0,50,0,0" CompactPaneLength="48" OpenPaneLength="220" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF1A83EA" DisplayMode="Inline" >
+        <SplitView Margin="0,50,0,0" CompactPaneLength="48" OpenPaneLength="210" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF1A83EA" DisplayMode="Inline" >
             <SplitView.Content >
                 <StackPanel Orientation="Vertical" Margin="48,0,0,0">
 
@@ -194,7 +194,7 @@
                     <Button x:Name="ShowAbout" Grid.Row="0" Grid.Column="0" Height="48" Width="48" VerticalAlignment="Top">
                         <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#x2148;" Foreground="GhostWhite" />
                     </Button>
-                    <TextBlock Text="Información" Grid.Row="0" Grid.Column="1" FontSize="32" VerticalAlignment="Top" Style="{StaticResource TextBlockBaseStyle}"></TextBlock>
+                    <TextBlock Text="Información" Grid.Row="0" Grid.Column="1" Margin="15,0,0,0" FontSize="27" VerticalAlignment="Top" Style="{StaticResource TextBlockBaseStyle}"></TextBlock>
                 </Grid>
 
             </SplitView.Pane>
