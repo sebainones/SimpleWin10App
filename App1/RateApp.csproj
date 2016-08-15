@@ -130,6 +130,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Resources\Argentina.jpg" />
+    <Content Include="Resources\arrow-down.png" />
+    <Content Include="Resources\arrow-up.png" />
+    <Content Include="Resources\equal.png" />
     <Content Include="Resources\Euro.png" />
     <Content Include="Resources\United_States.jpg" />
     <Content Include="Services\FakeJsonResponse.json">
@@ -143,6 +146,7 @@
     <Compile Include="BackgroundTasks\BackgroundTaskManager.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Converters\Converter.cs" />
+    <Compile Include="Converters\EnumToImageConverter.cs" />
     <Compile Include="Error\ErrorSatus.cs" />
     <Compile Include="Error\IMessageDialog.cs" />
     <Compile Include="Error\AdvancedMessageDialog.cs" />

@@ -18,30 +18,32 @@ namespace RateApp.LocalSettings
             {
                 var container = localSettings.Containers[containerName];
                 CreateSetting(container, settingName, settingValue);
-            }             
+            }
             else
             {
                 var container = CreateContainer(containerName);
                 CreateSetting(container, settingName, settingValue);
-            }               
+            }
         }
 
         public void UpdateSetting(string containerName, string settingName, string settingValue)
         {
-            localSettings.Containers[containerName].Values[settingValue] = settingValue;
+            localSettings.Containers[containerName].Values[settingName] = settingValue;
         }
 
         private void CreateSetting(ApplicationDataContainer container, string settingName, string settingValue)
         {
             container.Values[settingName] = settingValue;
-        }        
+        }
 
         public string TryGetValue(string containerName, string settingName)
         {
-            if (SettingHasValue(containerName, settingName))
-                return GetValueFromSetting(containerName, settingName);
+            string value = string.Empty;
 
-            return string.Empty;
+            if (SettingHasValue(containerName, settingName))
+                value = GetValueFromSetting(containerName, settingName);
+
+            return value;
         }
 
         //TODO: Refactor this. To be homogeneous!!!
@@ -69,6 +71,10 @@ namespace RateApp.LocalSettings
             return true;
         }
 
-      
+        public void Delete(string containerName)
+        {
+            if (localSettings.Containers.ContainsKey(containerName))
+                localSettings.DeleteContainer(containerName);
+        }
     }
 }

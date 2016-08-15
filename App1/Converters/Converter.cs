@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace App1.Converters
+namespace RateApp.Converters
 {
     public static class Converter
     {
