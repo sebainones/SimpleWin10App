@@ -215,6 +215,8 @@ namespace RateApp.ViewModels
             set { lastUpdated = value; }
         }
 
+
+
         public void ShowAbout()
         {
             _pageNavigationService.For<InformationViewModel>().Navigate();
@@ -248,7 +250,7 @@ namespace RateApp.ViewModels
 
             PopulateRates(fakeArsRate);
         }
-                
+
         private void PopulateRates(ArsRate arsRate)
         {
             PopulateDolar(arsRate.Dolar);
@@ -273,43 +275,41 @@ namespace RateApp.ViewModels
             }
         }
 
-        private void PopulateDolar(Rate currentDolarRate)
+        private void PopulateDolar(Rate currentRate)
         {
-            if (currentDolarRate.HasValue)
-            {
-                DolarCompra = Math.Round(currentDolarRate.Compra, 2);
-                DolarVenta = Math.Round(currentDolarRate.Venta, 2);
+            if (!currentRate.HasValue) return;
 
-                Rate previousDolarRate = TryGetPreviousRate(currentDolarRate);
+            DolarCompra = Math.Round(currentRate.Compra, 2);
+            DolarVenta = Math.Round(currentRate.Venta, 2);
 
-                if (previousDolarRate.HasValue && IsPreviousDateErlierThanNow(previousDolarRate))
-                    SetDolarRateComparison(previousDolarRate, currentDolarRate);
+            Rate previousRate = TryGetPreviousRate(currentRate);
 
-                else //No Previous Rate
-                    CreatePreviosRate(currentDolarRate);
+            if (previousRate.HasValue)
+                SetDolarRateComparison(previousRate, currentRate);
 
-                UpdatePreviousRate(previousDolarRate, DolarCompra, DolarVenta);
-            }
+            else //No Previous Rate
+                CreatePreviosRate(currentRate);
+
+            UpdatePreviousRate(previousRate, DolarCompra, DolarVenta);
         }
 
         //TODO: Refactor this to make just one method!!!
-        private void PopulateEuro(Rate currentEuroRate)
+        private void PopulateEuro(Rate currentRate)
         {
-            if (currentEuroRate.HasValue)
-            {
-                EuroCompra = Math.Round(currentEuroRate.Compra, 2);
-                EuroVenta = Math.Round(currentEuroRate.Venta, 2);
+            if (!currentRate.HasValue) return;
 
-                Rate previousEuroRate = TryGetPreviousRate(currentEuroRate);
+            EuroCompra = Math.Round(currentRate.Compra, 2);
+            EuroVenta = Math.Round(currentRate.Venta, 2);
 
-                if (previousEuroRate.HasValue && IsPreviousDateErlierThanNow(previousEuroRate))
-                    SetEuroRateComparison(previousEuroRate, currentEuroRate);
+            Rate previousRate = TryGetPreviousRate(currentRate);
 
-                else //No Previous Rate
-                    CreatePreviosRate(currentEuroRate);
+            if (previousRate.HasValue)
+                SetEuroRateComparison(previousRate, currentRate);
 
-                UpdatePreviousRate(previousEuroRate, EuroCompra, EuroVenta);
-            }
+            else //No Previous Rate
+                CreatePreviosRate(currentRate);
+
+            UpdatePreviousRate(previousRate, EuroCompra, EuroVenta);
         }
 
         private bool IsPreviousDateErlierThanNow(Rate previousRate)
@@ -355,6 +355,13 @@ namespace RateApp.ViewModels
         //TODO: refactor this to not use the rateIndicator. Maybe generic or sthg else
         private void SetDolarRateComparison(Rate previousRate, Rate curentRate)
         {
+            if (!IsPreviousDateErlierThanNow(previousRate))
+            {
+                DolarCompraRateIndicator = RateIndicator.Equal;
+                DolarVentaRateIndicator = RateIndicator.Equal;
+                return;
+            }
+
             if (curentRate.Compra > previousRate.Compra)
                 DolarCompraRateIndicator = RateIndicator.Increased;
             else if (curentRate.Compra < previousRate.Compra)
@@ -373,6 +380,13 @@ namespace RateApp.ViewModels
 
         private void SetEuroRateComparison(Rate previousRate, Rate curentRate)
         {
+            if (!IsPreviousDateErlierThanNow(previousRate))
+            {
+                EuroCompraRateIndicator = RateIndicator.Equal;
+                EuroVentaRateIndicator = RateIndicator.Equal;
+                return;
+            }
+
             if (curentRate.Compra > previousRate.Compra)
                 EuroCompraRateIndicator = RateIndicator.Increased;
             else if (curentRate.Compra < previousRate.Compra)

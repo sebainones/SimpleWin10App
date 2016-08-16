@@ -23,7 +23,8 @@
 
     <Page.Resources>
 
-        <localConverters:EnumToImageConverter x:Key="EnumConverter"></localConverters:EnumToImageConverter>
+        <localConverters:EnumToImageConverter x:Key="EnumToImageConverter"></localConverters:EnumToImageConverter>
+        <localConverters:EnumToTextConverter x:Key="EnumToTextConverter"></localConverters:EnumToTextConverter>
 
         <Style TargetType="TextBlock" x:Key="TextBlockBaseStyle">
             <Setter Property="Foreground" Value="GhostWhite"></Setter>
@@ -72,12 +73,13 @@
 
     <Grid Background="#FF1A83EA">
 
-        <!--Hamburguer Button-->
+        <!--#region Hamburguer Button-->
         <StackPanel Orientation="Horizontal"  >
             <Button x:Name="HandlePane" VerticalAlignment="Top" HorizontalAlignment="Left" Height="48" Width="48"  Content="&#xE126;" FontFamily="Segoe UI Symbol" Foreground="GhostWhite"></Button>
 
             <TextBlock x:Name="Caption" Text="{Binding Caption}" VerticalAlignment="Top"  Margin="10,0,0,0" FontSize="35" Style="{StaticResource TextBlockBaseStyle}"></TextBlock>
         </StackPanel>
+        <!--#endregion-->
 
         <SplitView Margin="0,50,0,0" CompactPaneLength="48" OpenPaneLength="210" IsPaneOpen="{Binding IsPaneOpen}" PaneBackground="#FF1A83EA" DisplayMode="Inline" >
             <SplitView.Content >
@@ -85,7 +87,8 @@
 
                     <StackPanel Orientation="Horizontal">
 
-                        <!--Dolar-Pesos-->
+                        <!--#region Dolar-Pesos-->
+                        
                         <Border Name="Dolar" Style="{StaticResource BorderStyle}">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -114,7 +117,14 @@
                                 <TextBlock  Grid.Row="1" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}" />
 
                                 <Image Grid.Row="1" Grid.Column="3"  Style="{StaticResource RateImageStyle}"                                       
-                                       Source="{Binding DolarCompraRateIndicator, Converter={StaticResource EnumConverter}}" Margin="5,8,5,0" ></Image>
+                                       Source="{Binding DolarCompraRateIndicator, Converter={StaticResource EnumToImageConverter}}" Margin="5,8,5,0" >
+                                    <ToolTipService.ToolTip >
+                                        <ToolTip>
+                                            <Binding Converter="{StaticResource EnumToTextConverter}" Path="DolarCompraRateIndicator" ></Binding>
+                                        </ToolTip>
+                                    </ToolTipService.ToolTip>
+
+                                </Image>
 
                                 <TextBlock x:Name="TextBlocVentaLabel"  Grid.Row="2" Grid.Column="0" Text="Venta" Style="{StaticResource TextBlockStyle}" />
                                 <TextBlock x:Name="DolarVenta"  Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Style="{StaticResource BoldTextBlockStyle}" 
@@ -123,12 +133,20 @@
 
 
                                 <Image Grid.Row="2" Grid.Column="3"  Style="{StaticResource RateImageStyle}"                                       
-                                       Source="{Binding DolarVentaRateIndicator, Converter={StaticResource EnumConverter}}" ></Image>
+                                       Source="{Binding DolarVentaRateIndicator, Converter={StaticResource EnumToImageConverter}}" >
+                                    <ToolTipService.ToolTip >
+                                        <ToolTip>
+                                            <Binding Converter="{StaticResource EnumToTextConverter}" Path="DolarVentaRateIndicator" ></Binding>
+                                        </ToolTip>
+                                    </ToolTipService.ToolTip>
+                                </Image>
 
                             </Grid>
                         </Border>
+                        
+                        <!--#endregion-->
 
-                        <!--Euro-Pesos-->
+                        <!--#region Euro-Pesos-->
                         <Border Name="Euro" Style="{StaticResource BorderStyle}">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -153,19 +171,32 @@
                                 <TextBlock x:Name="EuroCompra" Text="{Binding EuroCompra}" Grid.Row="1" Grid.Column="1" Style="{StaticResource BoldTextBlockStyle}" />
                                 <TextBlock  Grid.Row="1" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}" />
                                 <Image Grid.Row="1" Grid.Column="3"  Style="{StaticResource RateImageStyle}"                                       
-                                       Source="{Binding EuroCompraRateIndicator, Converter={StaticResource EnumConverter}}" ></Image>
+                                       Source="{Binding EuroCompraRateIndicator, Converter={StaticResource EnumToImageConverter}}" >
+                                    <ToolTipService.ToolTip >
+                                        <ToolTip>
+                                            <Binding Converter="{StaticResource EnumToTextConverter}" Path="EuroCompraRateIndicator" ></Binding>
+                                        </ToolTip>
+                                    </ToolTipService.ToolTip>
+                                </Image>
 
                                 <TextBlock Grid.Row="2" Grid.Column="0"   Text="Venta" Style="{StaticResource TextBlockStyle}"/>
                                 <TextBlock x:Name="EuroVenta"  Grid.Row="2" Grid.Column="1" 
                                            Style="{StaticResource BoldTextBlockStyle}" />
                                 <TextBlock  Grid.Row="2" Grid.Column="2" Style="{StaticResource PesosTextBlockStyle}" />
                                 <Image Grid.Row="2" Grid.Column="3"  Style="{StaticResource RateImageStyle}"                                       
-                                       Source="{Binding EuroVentaRateIndicator, Converter={StaticResource EnumConverter}}" ></Image>
+                                       Source="{Binding EuroVentaRateIndicator, Converter={StaticResource EnumToImageConverter}}" >
+                                    <ToolTipService.ToolTip >
+                                        <ToolTip>
+                                            <Binding Converter="{StaticResource EnumToTextConverter}" Path="EuroVentaRateIndicator" ></Binding>
+                                        </ToolTip>
+                                    </ToolTipService.ToolTip>
+                                </Image>
                             </Grid>
                         </Border>
 
+                        <!--#endregion-->
+                        
                     </StackPanel>
-
 
                     <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Stretch" >
                         <TextBlock Text="Última actualización:" Style="{StaticResource HeaderTextBlockStyle}"   FontSize="18"/>
@@ -173,12 +204,17 @@
                                                    Text="{Binding LastUpdated}" />
                     </StackPanel>
 
+                    <!--#region Ad Media Control-->
                     <Border Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                             BorderThickness="2" BorderBrush="Red" CornerRadius="3" Padding="10">
                         <my:AdMediatorControl  Background="DarkOrange" />
                     </Border>
+                    <!--#endregion-->
+                    
                 </StackPanel>
             </SplitView.Content>
+            
+            <!--#region Left Pane Menu-->
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -198,6 +234,8 @@
                 </Grid>
 
             </SplitView.Pane>
+            <!--#endregion-->
+            
         </SplitView>
     </Grid>
 </Page>

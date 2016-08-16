@@ -147,6 +147,7 @@
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Converters\Converter.cs" />
     <Compile Include="Converters\EnumToImageConverter.cs" />
+    <Compile Include="Converters\EnumToTextConverter.cs" />
     <Compile Include="Error\ErrorSatus.cs" />
     <Compile Include="Error\IMessageDialog.cs" />
     <Compile Include="Error\AdvancedMessageDialog.cs" />
