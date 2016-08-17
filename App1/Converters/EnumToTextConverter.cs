@@ -19,6 +19,7 @@ namespace RateApp.Converters
                 case RateIndicator.Increased:
                     return "Este valor ha aumentado en relación a la fecha precedente";
 
+                case RateIndicator.Undefined:
                 default:
                     return string.Empty;
             }

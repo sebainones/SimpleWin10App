@@ -2,8 +2,10 @@
 {
     public enum RateIndicator
     {
+        Undefined,
         Increased,
         Decreased,
-        Equal
+        Equal,
+        
     }
 }
