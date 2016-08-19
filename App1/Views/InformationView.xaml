@@ -5,19 +5,33 @@
     xmlns:local="using:RateApp.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignWidth="540"
+    d:DesignHeight="500"
     mc:Ignorable="d">
+    <Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Style TargetType="TextBlock" x:Key="TextBlockBaseStyle">
+            <Setter Property="Foreground" Value="GhostWhite"></Setter>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="TextBlockStyle"  BasedOn="{StaticResource TextBlockBaseStyle}">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid Background="#FF1A83EA">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="textBlock" Grid.Row="0" Margin="10" TextWrapping="Wrap" Text="ANOTHER VIEW" FontSize="36"/>
-        <Button x:Name="UpdateTile" Grid.Row="1" Content="Update Tile" HorizontalAlignment="Left" Margin="10" Width="auto"/>        
-        <Button x:Name="GoHome" Grid.Row="3" Content="Back" HorizontalAlignment="Left" Margin="10" Width="auto"/>
+        <TextBlock x:Name="textBlock" Grid.Row="0"  Style="{StaticResource TextBlockBaseStyle}" Text="Digital Hope Software" FontSize="36" HorizontalAlignment="Center"/>
+        <!--<Button x:Name="UpdateTile" Grid.Row="1" Content="Update Tile" HorizontalAlignment="Left" Margin="10" Width="auto"/>-->
+        <Button x:Name="GoHome" Grid.Row="3"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="48" Width="48"  Foreground="GhostWhite">
+            <!--<FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x25C0;" />-->
+            <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE100;" />
+        </Button>
 
 
     </Grid>

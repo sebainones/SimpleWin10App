@@ -3,8 +3,8 @@
   <Identity Name="e5e819e0-656e-4d6a-b1c4-e450382232de" Publisher="CN=sebainones" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="e5e819e0-656e-4d6a-b1c4-e450382232de" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>App1</DisplayName>
-    <PublisherDisplayName>sebainones</PublisherDisplayName>
+    <DisplayName>Dolar Argentina</DisplayName>
+    <PublisherDisplayName>Digital Hope Software</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="RateApp.App">
-      <uap:VisualElements DisplayName="Dolar Hoy" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Porvee la cotización del dolar actualziada diariamente." BackgroundColor="transparent">
+      <uap:VisualElements DisplayName="Dolar Argentina" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Porvee la cotización del dolar y el euro en argentina actualziada diariamente." BackgroundColor="transparent">
         <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png" ShortName="Dolar Hoy">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Square310x310Logo.png" Square71x71Logo="Assets\Square71x71Logo.png" ShortName="Dolar Argentina">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
             <uap:ShowOn Tile="wide310x150Logo" />
