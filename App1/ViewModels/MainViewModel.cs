@@ -252,11 +252,11 @@ namespace RateApp.ViewModels
         {
             //DeletePrevious(arsRate);
 
+            PopulateDateTime(arsRate);
+
             PopulateDolar(arsRate.Dolar);
 
             PopulateEuro(arsRate.Euro);
-
-            PopulateDateTime(arsRate);
         }
 
         private void DeletePrevious(ArsRate arsRate)
@@ -363,7 +363,7 @@ namespace RateApp.ViewModels
         {
             _localSettings.CreateSetting(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Buy), buy.ToString());
             _localSettings.CreateSetting(currentRate.Name, EnumHandler.GetDescriptionFromEnumValue(RateOptions.Sell), sell.ToString());
-            _localSettings.CreateSetting(currentRate.Name, "date", DateTime.Now.ToString());//.ToString("dd MM yyyy")
+            _localSettings.CreateSetting(currentRate.Name, "date", LastUpdate.ToString());//.ToString("dd MM yyyy")
         }
 
         private void UpdatePreviousRate(Rate previousRate, double buy, double sell)
