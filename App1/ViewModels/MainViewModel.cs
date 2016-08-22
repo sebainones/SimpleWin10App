@@ -287,9 +287,9 @@ namespace RateApp.ViewModels
             {
                 if (IsPreviousDateErlierThanNow(previousRate))
                 {
-                    DolarCompraRateIndicator = GetRateComparison(previousRate.Compra, currentRate.Compra);
+                    DolarCompraRateIndicator = GetRateComparison(previousRate.Compra, DolarCompra);
 
-                    DolarVentaRateIndicator = GetRateComparison(previousRate.Venta, currentRate.Venta);
+                    DolarVentaRateIndicator = GetRateComparison(previousRate.Venta, DolarVenta);
                 }
                 if (IsOlderThanOneDay(previousRate))
                 {
@@ -314,8 +314,8 @@ namespace RateApp.ViewModels
             {
                 if (IsPreviousDateErlierThanNow(previousRate))
                 {
-                    EuroCompraRateIndicator = GetRateComparison(previousRate.Compra, currentRate.Compra);
-                    EuroVentaRateIndicator = GetRateComparison(previousRate.Venta, currentRate.Venta);
+                    EuroCompraRateIndicator = GetRateComparison(previousRate.Compra, EuroCompra);
+                    EuroVentaRateIndicator = GetRateComparison(previousRate.Venta, EuroVenta);
                 }
                 if (IsOlderThanOneDay(previousRate))
                 {
