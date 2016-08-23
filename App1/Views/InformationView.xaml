@@ -16,7 +16,7 @@
         </Style>
 
         <Style TargetType="TextBlock" x:Key="TextBlockStyle"  BasedOn="{StaticResource TextBlockBaseStyle}">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="30"/>
         </Style>
     </Page.Resources>
 
@@ -24,11 +24,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="textBlock" Grid.Row="0"  Style="{StaticResource TextBlockBaseStyle}" Text="Digital Hope Software" FontSize="36" HorizontalAlignment="Center"/>
         <!--<Button x:Name="UpdateTile" Grid.Row="1" Content="Update Tile" HorizontalAlignment="Left" Margin="10" Width="auto"/>-->
-        <Button x:Name="GoHome" Grid.Row="3"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="48" Width="48"  Foreground="GhostWhite">
+        <TextBlock x:Name="Message" Grid.Row="1"  Style="{StaticResource TextBlockStyle}" FontSize="16" HorizontalAlignment="Center"/>
+        <Button x:Name="GoHome" Grid.Row="2"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="48" Width="48"  Foreground="GhostWhite">
             <!--<FontIcon FontFamily="Segoe UI Emoji" Glyph="&#x25C0;" />-->
             <FontIcon FontFamily="Segoe UI Symbol" Glyph="&#xE100;" />
         </Button>
