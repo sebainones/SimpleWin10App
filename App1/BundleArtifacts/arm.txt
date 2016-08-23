@@ -1,7 +1,7 @@
-MainPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.0.0_ARM.appx
-SymbolPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\AppPackages\RateApp_1.1.0.0_Test\RateApp_1.1.0.0_ARM.appxsym
-ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.0.0_language-es.appx
-ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.0.0_scale-100.appx
-ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.0.0_scale-125.appx
-ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.0.0_scale-150.appx
-ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.0.0_scale-400.appx
+MainPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.2.0_ARM.appx
+SymbolPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\AppPackages\RateApp_1.1.2.0_Test\RateApp_1.1.2.0_ARM.appxsym
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.2.0_language-es.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.2.0_scale-100.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.2.0_scale-125.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.2.0_scale-150.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\RateApp_1.1.2.0_scale-400.appx
