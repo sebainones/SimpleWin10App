@@ -405,7 +405,7 @@ namespace RateApp.ViewModels
 
         private void UpdateTile()
         {
-            var xmlText = _tileManager.CreateAdaptiveTile("Dolar", "Compra", DolarCompra.ToString(), "Venta", DolarVenta.ToString());
+            var xmlText = _tileManager.CreateAdaptiveTile("Dolar", "Compra", DolarCompra.ToString(), "Venta", DolarVenta.ToString(),"actualizado:", DateTime.Now.ToString("dd MM yyyy"));
 
             _tileManager.Update(xmlText);
         }

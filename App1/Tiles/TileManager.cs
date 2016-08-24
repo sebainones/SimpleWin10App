@@ -1,5 +1,6 @@
 ﻿using NotificationsExtensions;
 using NotificationsExtensions.Tiles;
+using System;
 using Windows.UI.Notifications;
 
 namespace RateApp.Tiles
@@ -7,14 +8,14 @@ namespace RateApp.Tiles
     //TODO: INterface segregation??? Between Creation and Update of tiles...
     public class TileManager : ITileManager
     {
-        public string CreateAdaptiveTile(string prefix, string leftTitle, string leftValue, string rightTitle, string rightValuevalue)
+        public string CreateAdaptiveTile(string prefix, string leftTitle, string leftValue, string rightTitle, string rightValuevalue, string dateTitle, string dateContent)
         {
             // Create a TileBinding for Large and Wide
             var bigTilebinding = new TileBinding();
-            bigTilebinding.Content = CreateTileContent(prefix, leftTitle, leftValue, rightTitle, rightValuevalue);
+            bigTilebinding.Content = CreateTileContent(prefix, leftTitle, leftValue, rightTitle, rightValuevalue, dateTitle, dateContent);
 
             var mediumTileBinding = new TileBinding();
-            mediumTileBinding.Content = CreateTileContent(string.Empty, leftTitle, leftValue, rightTitle, rightValuevalue);
+            mediumTileBinding.Content = CreateTileContent(string.Empty, leftTitle, leftValue, rightTitle, rightValuevalue, string.Empty, dateContent);
 
             //Create visual object
             var tileVisual = new TileVisual();
@@ -29,7 +30,7 @@ namespace RateApp.Tiles
             return tileObject.GetContent();
         }
 
-        private static TileBindingContentAdaptive CreateTileContent(string prefix, string leftTitle, string leftValue, string rightTitle, string rightValuevalue)
+        private static TileBindingContentAdaptive CreateTileContent(string prefix, string leftTitle, string leftValue, string rightTitle, string rightValuevalue, string dateTitle, string dateContent)
         {
             //Create a TileContent
             var tileContent = new TileBindingContentAdaptive();
@@ -37,8 +38,8 @@ namespace RateApp.Tiles
             //Create a groups and subgroups
             var tileGroup = new AdaptiveGroup();
 
-            AdaptiveSubgroup columnGroupLeft = CreateAdaptiveGroupColumn(prefix + " " + leftTitle, leftValue);
-            AdaptiveSubgroup CoulumnGroupRight = CreateAdaptiveGroupColumn(prefix + " " + rightTitle, rightValuevalue);
+            AdaptiveSubgroup columnGroupLeft = CreateAdaptiveGroupColumn(prefix + " " + leftTitle, leftValue, dateTitle);
+            AdaptiveSubgroup CoulumnGroupRight = CreateAdaptiveGroupColumn(prefix + " " + rightTitle, rightValuevalue, dateContent);
 
             tileGroup.Children.Add(columnGroupLeft);
             tileGroup.Children.Add(CoulumnGroupRight);
@@ -48,7 +49,7 @@ namespace RateApp.Tiles
             return tileContent;
         }
 
-        private static AdaptiveSubgroup CreateAdaptiveGroupColumn(string title, string value)
+        private static AdaptiveSubgroup CreateAdaptiveGroupColumn(string title, string value, string dateValue)
         {
             AdaptiveSubgroup adaptiveColumnGroup = new AdaptiveSubgroup();
             var contentTitle = new AdaptiveText();
@@ -57,48 +58,13 @@ namespace RateApp.Tiles
             var contenteValue = new AdaptiveText();
             contenteValue.Text = value;
 
+            var contentDate = new AdaptiveText();
+            contentDate.Text = dateValue;
+
             adaptiveColumnGroup.Children.Add(contentTitle);
             adaptiveColumnGroup.Children.Add(contenteValue);
+            adaptiveColumnGroup.Children.Add(contentDate);
             return adaptiveColumnGroup;
-        }
-
-        //TODO: Remove this if not being used. Use it as example for the CreateAdaptiveTile method.
-        private static void CreateTileContent()
-        {
-            TileContent content = new TileContent()
-            {
-                Visual = new TileVisual()
-                {
-
-                    TileWide = new TileBinding()
-                    {
-                        Content = new TileBindingContentAdaptive()
-                        {
-                            Children =
-                                {
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Jennifer Parker",
-                                        HintStyle = AdaptiveTextStyle.Subtitle
-                                    },
-
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Photos from our trip",
-                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                    },
-
-                                    new AdaptiveText()
-                                    {
-                                        Text = "Check out these awesome photos I took while in New Zealand!",
-                                        HintStyle = AdaptiveTextStyle.CaptionSubtle
-                                    }
-                                }
-                        }
-                    },
-
-                }
-            };
         }
 
         public void Update(string xmldocumentinfo)
