@@ -26,7 +26,7 @@ namespace RateApp.ViewModels
             _pageNavigationService = pageNavigationService;
             _tileManager = tileManager;
 
-            message = "Dolar Argentina porvee la cotización del Dolar y el Euro en Argentina actualziada diariamente";
+            message = "Dolar Argentina provee la cotización del Dolar y el Euro en Argentina actualizada diariamente";
         }
 
         public void GoHome()
