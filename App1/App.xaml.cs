@@ -58,7 +58,7 @@ namespace RateApp
 
         private static void SetApplicationSize()
         {
-            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(540, 500);
+            ApplicationView.PreferredLaunchViewSize = new Windows.Foundation.Size(540, 550);
             ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
