@@ -1,2 +1,7 @@
 MainPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\ARM\Release\Upload\RateApp_1.1.0.0_ARM.appx
 SymbolPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\AppPackages\RateApp_1.1.0.0\RateApp_1.1.0.0_ARM.appxsym
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\_language-es.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\_scale-100.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\_scale-125.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\_scale-150.appx
+ResourcePack=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\_scale-400.appx
