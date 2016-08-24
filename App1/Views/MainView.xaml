@@ -209,12 +209,13 @@
                     <Border Margin="10"  HorizontalAlignment="Left"
                             BorderThickness="3" BorderBrush="WhiteSmoke" CornerRadius="2" Padding="02">
 
-                        <UI:AdControl ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1"
-                      AdUnitId="10865270"
-                      HorizontalAlignment="Left"
-                      Height="200"
-                      VerticalAlignment="Top"
-                      Width="412"/>
+                        <UI:AdControl ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1"                                      
+                          ErrorOccurred="AdControl_ErrorOccurred"
+                          AdUnitId="10865270"
+                          HorizontalAlignment="Left"
+                          Height="200"
+                          VerticalAlignment="Top"
+                          Width="412"/>
                     </Border>
                     <!--#endregion-->
 

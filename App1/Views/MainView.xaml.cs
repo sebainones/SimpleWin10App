@@ -1,4 +1,5 @@
-﻿using RateApp.ViewModels;
+﻿using Microsoft.Advertising.WinRT.UI;
+using RateApp.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,12 +16,6 @@ namespace RateApp.Views
         {
             this.InitializeComponent();
             this.Loaded += SomeView_Loaded;
-
-            // Or typecast to exact instance what you intend to use.
-            //MyViewModel vm = DataContext as MyViewModel;
-
-            //var mainViewModel = new Scenario1ViewModel();
-
         }
 
 
@@ -28,15 +23,12 @@ namespace RateApp.Views
         private void SomeView_Loaded(object sender, RoutedEventArgs e)
         {
             // Get you the object of ViewModel.
-            MainViewModel viewModelInstance = DataContext as MainViewModel;
-
-            //viewModelInstance.MenuItems.Add(new NavigationItem()
-            //{
-            //    Label = "Page 1",
-            //    DestinationPage = typeof(AnotherView),
-            //    Symbol = Symbol.Bookmarks
-            //});
+            MainViewModel viewModelInstance = DataContext as MainViewModel;           
         }
-
+      
+        private void AdControl_ErrorOccurred(object sender, AdErrorEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("AdControl error (" + ((AdControl)sender).Name + "): " + e.ErrorMessage + " ErrorCode: " + e.ErrorCode.ToString());
+        }
     }
 }
