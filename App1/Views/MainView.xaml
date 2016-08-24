@@ -214,9 +214,9 @@
                     </Grid>
 
                     <!--#region Ad Media Control-->
-                    <UI:AdControl ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1"                                      
+                    <UI:AdControl ApplicationId="44cddbe0-2d28-40a6-a449-8e193636ee44"                                      
                           ErrorOccurred="AdControl_ErrorOccurred"
-                          AdUnitId="10865270"
+                          AdUnitId="11641210"
                           HorizontalAlignment="Stretch"                          
                           VerticalAlignment="Center"
                           Width="300"
