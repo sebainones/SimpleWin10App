@@ -5,7 +5,6 @@ namespace RateTileUpdater
 {
     public sealed class UpdateTask : IBackgroundTask
     {
-
         public void Run(IBackgroundTaskInstance taskInstance)
         {
             if (taskInstance == null) return;

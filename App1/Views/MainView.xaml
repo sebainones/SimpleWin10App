@@ -216,6 +216,7 @@
                     <!--#region Ad Media Control-->
                     <UI:AdControl ApplicationId="44cddbe0-2d28-40a6-a449-8e193636ee44"                                      
                           ErrorOccurred="AdControl_ErrorOccurred"
+                          Loaded="AdControl_Loaded"                                  
                           AdUnitId="11641210"
                           HorizontalAlignment="Stretch"                          
                           VerticalAlignment="Center"

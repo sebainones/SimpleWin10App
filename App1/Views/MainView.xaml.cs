@@ -30,5 +30,11 @@ namespace RateApp.Views
         {
             System.Diagnostics.Debug.WriteLine("AdControl error (" + ((AdControl)sender).Name + "): " + e.ErrorMessage + " ErrorCode: " + e.ErrorCode.ToString());
         }
+
+        private void AdControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Nothing goes here as is giving me an error if I don't have this method. I don't know why
+
+        }
     }
 }
