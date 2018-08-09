@@ -16,6 +16,8 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
 
 namespace RateApp
 {
@@ -33,6 +35,14 @@ namespace RateApp
         /// </summary>
         public App()
         {
+
+#if DEBUG
+            AppCenter.LogLevel = LogLevel.Verbose;
+
+#endif
+            AppCenter.Start("65ac25ba-d5ec-4fec-a218-994ed5a5496b", typeof(Analytics));
+
+
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
             Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
             Microsoft.ApplicationInsights.WindowsCollectors.Session);
