@@ -1,2 +1,2 @@
-MainPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\x86\Release\Upload\RateApp_1.1.0.0_x86.appx
-SymbolPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\AppPackages\RateApp_1.1.0.0\RateApp_1.1.0.0_x86.appxsym
+MainPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\bin\x86\Release\Upload\RateApp_1.1.2.0_x86.appx
+SymbolPackage=C:\Users\sebai\Source\Repos\SimpleWin10App\App1\AppPackages\RateApp_1.1.2.0\RateApp_1.1.2.0_x86.appxsym
