@@ -1,4 +1,4 @@
 # SimpleWin10App
 Simple UWP APP in order to apply things that I study.
-It shows the current price of the of the dollar and also the argentinian peso.
-It connects to some external source in order to gather those prices.
+It shows the rates of the of the US Dollar in Argentinian Peso and also the Euro.
+It fetchs the rates from openexchangerates (external source) in order to gather those rates.
