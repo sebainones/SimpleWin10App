@@ -145,8 +145,6 @@
     <Content Include="Services\FakeJsonResponse.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="RateApp_StoreKey.pfx" />
-    <None Include="RateApp_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
